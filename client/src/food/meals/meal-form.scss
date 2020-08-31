@@ -1,0 +1,41 @@
+.meal-form {
+  display: flex;
+  flex-direction: column;
+
+  &__cover {
+    position: relative;
+
+    input {
+      display: none;
+    }
+
+    label {
+      position: absolute;
+      top: 50%;
+      right: 50%;
+      transform: translate(50%, -50%);
+    }
+  }
+
+  &__cover-image {
+    width: 100%;
+    max-height: 240px;
+  }
+
+  &__upload-image {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+
+  &__inputs {
+    margin: 30px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 50px 30px 40px 0px;
+  }
+}

@@ -1,0 +1,12 @@
+@import "../../shared/styles/theme.scss";
+
+.user-profile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__tabs {
+    width: 100%;
+  }
+}

@@ -1,0 +1,63 @@
+@import "../shared/styles/theme.scss";
+
+.user-menu {
+  display: flex;
+  flex-direction: column;
+  margin: $body-margin $body-margin 0px $body-margin;
+  height: 100%;
+
+  &__close {
+    margin-bottom: 40px;
+  }
+
+  &__profile {
+    display: flex;
+    padding-bottom: 15px;
+    border-bottom: 1px solid $ni-light-gray;
+
+    img {
+      margin-right: 15px;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__name {
+    font-size: $body-text-size;
+    font-weight: bold;
+  }
+
+  &__privilege {
+    font-size: $subtext-size;
+    color: $ni-gray;
+  }
+
+  &__option {
+    display: flex;
+    margin-top: 40px;
+    color: black;
+    text-decoration: none;
+  }
+
+  &__option-image {
+    margin-right: 15px;
+  }
+
+  &__option-name {
+    font-weight: bold;
+    display: flex;
+    align-items: center;;
+  }
+
+  &__logout {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    font-weight: bold;
+    font-size: $body-text-size;
+  }
+}

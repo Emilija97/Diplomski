@@ -1,0 +1,41 @@
+@import "../../shared/styles/theme.scss";
+
+$field-height: 50px;
+$search-field-color: #EFEFF0;
+
+.search-field {
+  background-color: $search-field-color;
+  height: $field-height;
+  width: 100%;
+  border-radius: $field-height / 2;
+  display: flex;
+
+  &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $field-height;
+    margin-left: $field-height / 4;
+  }
+
+  &__input-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-right: $field-height / 2;
+
+    input:focus {
+      outline: none;
+    }
+
+    input[type="text"] {
+      font-size: $body-text-size;
+    }
+  }
+
+  &__input {
+    background-color: $search-field-color;
+    border: 0px;
+    width: 100%;
+  }
+}

@@ -1,0 +1,25 @@
+@import "../styles/theme.scss";
+
+.button-toggle {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &__status-buttons-inactive-btn {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: $inactive-button-text;
+    font-size: $subtext-size;
+    letter-spacing: $letter-spacing;
+  }
+
+  &__status-buttons-selected {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: $primary;
+    font-size: $body-text-size;
+    font-weight: 700;
+    letter-spacing: $letter-spacing;
+  }
+}

@@ -1,0 +1,39 @@
+@import "../../../shared/styles/theme.scss";
+
+.orders {
+  background: #F9F9F9;
+  height: 100%;
+
+  &__list {
+    margin: 30px;
+  }
+
+  &__list-item {
+    margin-bottom: 30px;
+  }
+
+  &__options {
+    margin: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__week {
+    font-size: $h5;
+    font-weight: 500;
+    margin-right: 20px;
+  }
+
+  &__week-navigation {
+    display: flex;
+
+    button {
+      margin: 0px 15px;
+    }
+  }
+
+  &__to-pdf {
+    
+  }
+}

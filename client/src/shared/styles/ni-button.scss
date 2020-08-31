@@ -1,0 +1,139 @@
+@import './theme.scss';
+
+$border-color: black;
+$light-border-color: #d9d9d9;
+$mini-width: 30px;
+$mini-height: 30px;
+$small-width: 140px;
+$small-height: 42px;
+$medium-width: 200px;
+$medium-height: 60px;
+$large-width: 250px;
+$large-height: 72px;
+$extra-large-width: 250px;
+$extra-large-height: 50px;
+
+.ni-button {
+  border: 0px;
+  border-radius: $large-height / 2;
+  font-size: $body-text-size;
+
+  &--mini {
+    width: $mini-width;
+    height: $mini-height;
+    font-size: $subtext-size;
+  }
+
+  &--small {
+    width: $small-width;
+    height: $small-height;
+    font-size: $subtext-size;
+  }
+
+  &--medium {
+    width: $medium-width;
+    height: $medium-height;
+  }
+
+  &--large {
+    width: $large-width;
+    height: $large-height;
+    font-size: $h5;
+  }
+
+  &--extra-large {
+    width: $extra-large-width;
+    height: $extra-large-height;
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &__contained {
+    border: 0px;
+
+    &--primary {
+      background-color: $primary;
+      color: white;
+    }
+
+    &--secondary {
+      background-color: $secondary;
+      color: $primary;
+    }
+  }
+
+  &__outlined {
+    border: 1px solid $border-color;
+    background-color: white;
+
+    &--primary {
+      color: $primary;
+      border: 1px solid $primary;
+    }
+
+    &--secondary {
+      color: $secondary;
+    }
+
+    &--inactive {
+      border: 1px solid $light-border-color;
+    }
+  }
+
+  &__text {
+    border: 0px;
+    background: none;
+
+    &--primary {
+      color: $primary;
+    }
+
+    &--secondary {
+      color: $secondary;
+    }
+
+    &--selected {
+      background-color: $secondary;
+      color: $primary;
+    }
+
+    &--dark {
+      color: black;
+    }
+
+    &--transparent {
+      background: none;
+    }
+  }
+
+  &__circle {
+    border-radius: 50%;
+    background: none;
+
+    &--primary {
+      background-color: $primary;
+      color: white;
+    }
+
+    &--small {
+      width: $small-height;
+      height: $small-height;
+    }
+
+    &--medium {
+      width: $medium-height;
+      height: $medium-height;
+    }
+
+    &--large {
+      width: $large-height;
+      height: $large-height;
+    }
+  }
+}
+
+.ni-button:focus {
+  outline: none;
+}

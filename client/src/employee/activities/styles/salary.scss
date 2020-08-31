@@ -1,0 +1,37 @@
+@import "../../../shared/styles/theme.scss";
+
+$label-color: #BBBBBB;
+$input-border-color: #C5C5C5;
+
+.salary {
+  font-size: $body-text-size;
+
+  &__salary-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+  }
+
+  &__label {
+    color: $label-color;
+  }
+
+  &__label-salary {
+    font-weight: 700;
+    color: $title-color;
+  }
+
+  &__input {
+    border: 1px solid $input-border-color;
+    height: 35px;
+    width: 100px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  &__input:focus {
+    outline: none;
+  }
+
+}

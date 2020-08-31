@@ -1,0 +1,24 @@
+@import "../../../shared/styles/theme.scss";
+
+.chose-activity {
+    .MuiSelect-select:focus {
+        background: none;
+    }
+
+    .MuiSelect-select.MuiSelect-select {
+        padding-right: 0px;
+    }
+
+    &__select-form {
+        min-width: 120px;
+        display: block !important;
+        
+        //select-to have max width
+        .MuiInputBase-root {
+            display: block !important;
+        }
+    }
+    // .MuiInputBase-input {
+    //   width: 70%;
+    // }
+}

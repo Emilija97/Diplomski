@@ -1,0 +1,17 @@
+
+.activity-content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  &__form-action {
+    padding-top: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    }
+}

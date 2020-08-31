@@ -1,0 +1,5 @@
+@import "../../../shared/styles/theme.scss";
+
+.MuiPickersDay-daySelected {
+  background-color: $primary !important;
+}

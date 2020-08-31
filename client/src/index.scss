@@ -1,0 +1,29 @@
+html,
+body,
+body > #root {
+  height: 100%;
+}
+
+* {
+  font-family: "Roboto-Regular";
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, monospace;
+}
+
+@font-face {
+  font-family: "Roboto-Regular";
+  src: local("Roboto-Regular"),
+    url(./assets/fonts/Roboto-Regular.ttf) format("truetype");
+}

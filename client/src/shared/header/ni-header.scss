@@ -1,0 +1,55 @@
+@import "../styles/theme.scss";
+
+$header-height: 100px;
+
+.ni-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: $header-height;
+  position: relative;
+
+  &__logo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+  }
+
+  &__logo-image {
+    height: 40px;
+    width: auto;
+    margin: 8px;
+  }
+
+  &__logo-title {
+    font-size: $h5;
+    letter-spacing: 4px;
+  }
+
+  &__title {
+    font-size: $body-text-size;
+    font-weight: bold;
+  }
+
+  &__arrow {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__menu {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__dialog {
+    .MuiPaper-elevation24 {
+      box-shadow: none;
+    }
+  }
+}

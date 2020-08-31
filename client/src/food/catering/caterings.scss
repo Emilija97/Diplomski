@@ -1,0 +1,27 @@
+.caterings {
+  background: #F9F9F9;
+  height: 100%;
+  
+  &__items {
+    margin: 30px;
+  }
+
+  &__item {
+    height: 64px;
+    margin-bottom: 30px;
+  }
+
+  &__menu {
+    margin: 30px 30px 0px 30px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__plus-button {
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,12 @@
+@import "../../shared/styles/theme.scss";
+
+.requests {
+
+  &__body {
+    margin: 0px $body-margin 0px $body-margin;
+  }
+
+  &__no-requests-message {
+    margin-top: 16px;
+  }
+}

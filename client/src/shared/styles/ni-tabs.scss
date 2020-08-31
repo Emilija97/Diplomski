@@ -1,0 +1,38 @@
+@import "./theme.scss";
+
+$underline-color: #b22525;
+$tab-text-color: #090909;
+$inactive-tab-color: $ni-light-gray;
+
+.ni-tabs {
+    .MuiTab-root {
+        text-transform: none;
+        font-size: $body-text-size;
+    }
+
+    .PrivateTabIndicator-colorSecondary-27 {
+        background-color: $underline-color;
+    }
+
+    .MuiTab-textColorInherit {
+        color: $inactive-tab-color;
+    }
+    
+    .MuiTab-textColorInherit.Mui-selected {
+        color: $tab-text-color;
+    }
+
+    &--primary {
+        .PrivateTabIndicator-colorSecondary-27 {
+            background-color: $primary;
+        }
+
+        .MuiTab-textColorInherit {
+            color: $inactive-tab-color;
+        }
+        
+        .MuiTab-textColorInherit.Mui-selected {
+            color: $primary;
+        }
+    }
+}

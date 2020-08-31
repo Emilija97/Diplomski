@@ -1,0 +1,46 @@
+@import '../../../shared/styles/theme.scss';
+
+.catering-meals {
+  display: flex;
+  flex-direction: column;
+  background: #F9F9F9;
+
+  &__content {
+    padding: 0px $body-margin;
+  }
+
+  &__actions {
+    padding-top: 60px;
+    margin-right: 30px;
+  }
+
+  .MuiSelect-select:focus {
+    background: none;
+  }
+
+  .MuiSelect-select.MuiSelect-select {
+      padding-right: 0px;
+      font-weight: 700;
+  }
+
+  &__select-form {
+      min-width: 120px;
+      display: block !important;
+      
+      //select-to have max width
+      .MuiInputBase-root {
+          display: block !important;
+      }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding-bottom: 60px;
+  }
+
+  &__cancel-button {
+    background: none;
+  }
+}

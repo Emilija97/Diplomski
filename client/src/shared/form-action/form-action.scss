@@ -1,0 +1,12 @@
+
+@import "../styles/theme.scss";
+
+.form-action {
+    display: flex;
+    justify-content: space-between;
+  
+    &__buttons {
+    font-weight: 700;
+    font-size: $body-text-size;
+    }
+}

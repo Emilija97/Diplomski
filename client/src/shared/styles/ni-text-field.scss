@@ -1,0 +1,56 @@
+@import "./theme.scss";
+
+$default-color: #252E38;
+$focused-color: #3C64B1;
+$error-color: #ED1C24;
+
+.ni-text-field {
+  margin-bottom: 10px !important;
+
+  label {
+    color: $default-color;
+    font-size: $body-text-size;
+  }
+
+  .MuiInputBase-input {
+    background: auto;
+  }
+  
+  .MuiFormHelperText-root {
+    font-size: $subtext-size;
+  }
+
+  .MuiFormHelperText-root.Mui-focused {
+    color: $focused-color;
+  }
+
+  .MuiFormLabel-root.Mui-focused {
+    color: $focused-color;
+  }
+
+  .MuiInput-underline:after {
+    border-bottom: 2px solid $focused-color;
+  }
+
+  &--error {
+    .MuiFormHelperText-root.Mui-focused {
+      color: $error-color;
+    }
+
+    .MuiFormLabel-root.Mui-focused {
+      color: $error-color;
+    }
+
+    .MuiInput-underline:after {
+      border-bottom: 2px solid $error-color;
+    }
+
+    .MuiFormHelperText-root {
+      color: $error-color;
+    }
+
+    .MuiFormLabel-root {
+      color: $error-color;
+    }
+  }
+}

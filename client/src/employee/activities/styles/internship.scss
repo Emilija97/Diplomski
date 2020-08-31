@@ -1,0 +1,16 @@
+@import "../../../shared/styles/theme.scss";
+
+$comment-color: #BBBBBB;
+
+.internship {
+  
+  &__calendar {
+    display: flex;
+    justify-content: space-between;
+
+    .MuiInput-underline:before, .MuiInput-underline:after {
+      width: 100px;
+    }
+  }
+
+}

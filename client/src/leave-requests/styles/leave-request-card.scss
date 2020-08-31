@@ -1,0 +1,105 @@
+@import "../../shared/styles/theme.scss";
+
+.request-card {
+  background-color: #F8F8F8;
+  padding: 20px 15px 20px 15px;
+  border-radius: 6px;
+  margin-top: 15px;
+  box-shadow: 0px 8px 28px rgba(124, 124, 124, 0.06);
+
+  &__header {
+    display: flex;
+    padding-bottom: 15px;
+    align-items: center;
+    border-bottom: 1px solid #E3E3E3;
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+  }
+
+  &__user-name {
+    font-size: $body-text-size;
+    font-weight: bold;
+    line-height: 32px;
+  }
+
+  &__user-position {
+    font-size: $subtext-size;
+    color: $subtext-color;
+  }
+
+  &__user-menu {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0px 15px 0px;
+  }
+
+  &__title {
+    font-size: $h5;
+    font-weight: bold;
+    line-height: 32px;
+  }
+
+  &__date {
+    font-size: 14px;
+    color: #8A8A8A;
+    line-height: 32px;
+    
+    &--pending {
+      color: $primary;
+    }
+  }
+
+  &__message-title {
+    font-size: 14px;
+    line-height: 32px;
+  }
+
+  &__message {
+    color: $subtext-color;
+    font-size: $subtext-size;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #E3E3E3;
+    line-height: 24px;
+  }
+
+  &__action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+  }
+
+  &__reject-button {
+    font-weight: bold;
+    color: black;
+    background: none;
+    font-size: 14px
+  }
+
+  &__approve-button {
+    color: white;
+    background-color: $primary;
+    font-size: 14px;
+  }
+
+  &--pending {
+    color: $primary;
+  }
+
+  &--approved {
+    color: green;
+  }
+
+  &--rejected {
+    color: $primary;
+  }
+}

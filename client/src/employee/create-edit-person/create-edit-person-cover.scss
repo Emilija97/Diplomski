@@ -1,0 +1,91 @@
+@import "../../shared/styles/theme.scss";
+
+$avatar-height: 72px;
+$avatar-width: 72px;
+
+.add-new-person-cover {
+  width: 100%;
+  
+  &__content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+  }
+
+  &__back {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+  }
+
+  &__background-image {
+    width: 100%;
+    max-height: 240px;
+    opacity: 0.5;
+  }
+
+  &__avatar {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      height: $avatar-height;
+      width: $avatar-width;
+      border-radius: $avatar-height/2;
+      object-fit: cover;
+    }
+  }
+
+  &__add-profile {
+    background: rgba(196, 196, 196, 1);
+  }
+
+  &__enter-name,
+  &__enter-role {
+    border: none;
+    background: none;
+    color: white;
+    padding-top: 5px;
+    text-align: center;
+  }
+
+  &__enter-name {
+    font-size: $h4;
+  }
+
+  &__enter-role {
+    font-size: $body-text-size;
+  }
+
+  &__enter-name::placeholder,
+  &__enter-role::placeholder {
+    color: white;
+  }
+
+  &__enter-name:focus,
+  &__enter-role:focus {
+    outline: none;
+  }
+
+  input:focus::placeholder {
+    color: transparent;
+  }
+
+  &__input-file {
+    display: none;
+  }
+
+  &__custom-file-upload {
+    border: none;
+    display: inline-block;
+    background: rgba(196, 196, 196, 1);
+  }
+
+  &__custom-file-upload:focus {
+    outline: none;
+  }
+}

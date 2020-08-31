@@ -1,0 +1,60 @@
+@import "../../shared/styles/theme.scss";
+
+
+.create-edit-person {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding: $body-margin;
+  }
+
+  &__content-label {
+    padding-bottom: 15px;
+    color: $readable-color;
+    font-size: $subtext-size;
+
+    &--upload {
+      font-size: $body-text-size;
+      color: $subtitle-color;
+      padding-top: 15px;
+    }
+  }
+
+  &__content-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
+
+  &__content-upload-cv {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__content-underline {
+    border: 1px solid #f7f7f7;
+    width: 100%;
+    margin-bottom: 60px;
+  }
+
+  &__content-input-file {
+    display: none;
+  }
+
+  &__content-custom-file-upload {
+      border: none;
+      display: inline-block;
+      padding: 6px 12px;
+  }
+
+  &__content-custom-file-upload:focus {
+    outline: none;
+  }
+
+}

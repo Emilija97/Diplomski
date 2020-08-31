@@ -1,0 +1,26 @@
+@import "../../shared/styles/theme.scss";
+
+.notification {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 300px;
+  margin: $body-margin;
+
+  &__close {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__title {
+    font-size: $h5;
+    font-weight: bold;
+    margin: 30px 0px 15px 0px;
+  }
+
+  &__message {
+    font-size: $body-text-size;
+    color: $ni-gray;
+    flex: 1;
+  }
+}

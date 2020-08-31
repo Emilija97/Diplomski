@@ -1,0 +1,27 @@
+@import "./theme.scss";
+
+$dialog-text-color: #303030;
+$focused-color: #3C64B1;
+$error-color: #ED1C24;
+
+.ni-dialog {
+    margin-bottom: 10px !important;
+
+    .MuiDialogTitle-root {
+        text-align: center;
+    }
+
+    .MuiTypography-h6 {
+        font-size: $body-text-size;
+        font-weight: 700;
+        color: $dialog-text-color;
+    }
+
+    .MuiDialogContentText-root {
+        margin-top: 10px;
+    }
+    
+    .MuiDialogActions-root {
+        margin-bottom: 25px;
+    }
+}

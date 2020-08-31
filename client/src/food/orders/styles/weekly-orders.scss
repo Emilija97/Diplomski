@@ -1,0 +1,56 @@
+@import "../../../shared/styles/theme.scss";
+
+.weekly-orders {
+  width: 100%;
+  background: #F9F9F9;
+
+  &__header {
+    background: black;
+    height: 330px;
+    color: white;
+  }
+
+  &__background {
+    position: absolute;
+    opacity: 0.56;
+    height: 330px;
+    width: 100%;
+  }
+
+  &__back-arrow {
+    position: relative;
+    justify-content: start;
+    padding-left: 30px;
+    padding-top: 30px;
+  }
+
+  &__welcome-text {
+    position: relative;
+    padding-top: 56px;
+    padding-left: 64px;
+    color: white;
+  }
+
+  &__h5 {
+    font-weight: bold;
+    font-size: $h5;
+    margin-bottom: 15px;
+  }
+
+  &__days {
+    padding: $body-margin;
+  }
+
+  &__actions {
+    padding-bottom: 30px;
+    padding-right: 40px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__title {
+    margin-top: 20px;
+    margin-left: 30px;
+    font-weight: bold;
+  }
+}

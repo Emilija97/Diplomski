@@ -1,0 +1,48 @@
+@import '../../../shared/styles/theme.scss';
+
+.course-meal {
+  display: flex;
+  padding: 10px 11px 10px 11px;
+  background: white;
+  box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  margin-bottom: 20px;
+  max-height: 60px;
+  justify-content: flex-start;
+
+  &__text {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    font-size: $body-text-size;
+    color: $title-color;
+    font-weight: bold;
+  }
+
+  &__details {
+    display: flex;
+    font-size: $subtext-size;
+    color: #ABABAB;
+    padding-top: 5px;
+  }
+
+  &__quantity {
+    margin-right: 60px;
+  }
+
+  &__action {
+    display: flex;
+    flex: 1;
+    color: red;
+    align-items: center;
+    justify-content: flex-end;
+
+    &--btn {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

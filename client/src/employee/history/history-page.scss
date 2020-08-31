@@ -1,0 +1,100 @@
+@import "../../shared/styles/theme.scss";
+
+$dashed-line-color: #9FA2A8;
+
+.history-page {
+  display: flex;
+  flex-direction: column;
+  padding: $body-margin;
+
+  &__content {
+    position: relative;
+  }
+
+  &__day {
+    padding-right: 25px;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 5px;
+
+    &--date {
+      background: white;
+      padding-top: 5px;
+    }
+  }
+
+  &__side-line {
+    position: absolute;
+    z-index: -1;
+    top: 40px;
+    bottom: 0;
+    left: 15px;
+    border-left: 2px dashed $dashed-line-color;
+  }
+
+  &__activity {
+    display: flex;
+    flex-direction: row;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+  }
+
+  &__activity-item {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    box-shadow: 0px 4px 28px rgba(0, 0, 0, 0.06);
+  }
+
+  &__activity-name {
+    margin-left: 15px;
+    padding-bottom: 5px;
+    font-size: $body-text-size;
+    color: $primary;
+
+    &--green {
+      color: #7FA691;
+    }
+  }
+
+  &__activity-comment {
+    color: #868080;
+    font-size: $subtext-size;
+    margin-left: 15px;
+    padding-bottom: 5px;
+  }
+
+  &__activity-status {
+    color: $title-color;
+    font-size: $body-text-size;
+    margin-left: 15px;
+    padding-bottom: 5px;
+  }
+
+  &__action {
+    text-align: center;
+    width: 100%;
+    padding-top: 45px;
+    position: fixed;
+    bottom: 15px;
+    margin-left: -20px;
+  }
+
+  &__dot {
+    position: absolute;
+    bottom: 0px;
+    height: 25px;
+    left: -12.5px;
+    width: 25px;
+    background-color: $dashed-line-color;
+    border-radius: 50%;
+  }
+
+  &__bottom-container {
+    height: 150px;
+    padding-top: 30px;
+  }
+}

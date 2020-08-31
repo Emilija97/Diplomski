@@ -1,0 +1,12 @@
+@import "../../../shared/styles/theme.scss";
+
+$comment-color: #BBBBBB;
+
+.interview {
+  &__comment-label {
+    padding-top: 20px;
+    font-size: $body-text-size;
+    color: $comment-color;
+  }
+
+}

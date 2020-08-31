@@ -1,0 +1,28 @@
+.catering-form {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    line-height: 32px;
+    margin: 40px 0px 40px 0px;
+  }
+
+  &__form {
+    margin: 0px 15px 40px 15px;
+  }
+
+  &__action {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 40px;
+  }
+
+  &__text-field {
+    label {
+      color: #BBBBBB;
+    }
+  }
+}
