@@ -6,7 +6,7 @@ import { User } from "../../people/store";
 import { PEOPLE_URL } from "./people.service";
 import { addOne, getOne, updateOne } from "./repository.service";
 
-export const PERSON_URL = "http://localhost:4000/persons";
+export const PERSON_URL = "http://localhost:5000/people";
 
 export function apiAddPerson(person: Person): Observable<string> {
   const user: User = {

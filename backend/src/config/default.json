@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://emili:APLKiH5YV45r9hq@diplomski.vgboc.mongodb.net/hrapp?retryWrites=true&w=majority",
+    "jwtSecret": "sl_myJwtSecret"
+}
