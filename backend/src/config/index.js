@@ -7,6 +7,7 @@ const {
   MONGODB_USER,
   MONGODB_PASSWORD,
   MONGODB_DATABASE,
+  ATLAS_URI,
   EMAIL_ACC,
   EMAIL_PASS,
   FRONTEND_DOMAIN,
@@ -26,6 +27,7 @@ module.exports = {
     account: EMAIL_ACC,
     password: EMAIL_PASS,
   },
+  uri: ATLAS_URI,
   db: {
     host: MONGODB_HOST,
     user: MONGODB_USER,

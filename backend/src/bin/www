@@ -40,7 +40,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-const server = http.createServer();
+const server = http.createServer(app);
 
 /**
  * Event listener for HTTP server "error" event.
@@ -75,6 +75,7 @@ function onError(error) {
  */
 
 function onListening() {
+    console.log("U listen sam");
     const address = server.address();
     const bind = typeof address === 'string'
         ? `pipe ${address}`

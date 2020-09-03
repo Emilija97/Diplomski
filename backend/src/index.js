@@ -2,9 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const logger = require('./services/logger');
-require('./models/people');
-require('services/db')();
-const mongoose = require('mongoose');
+require('./models');
+require('./services/db')();
 
 const app = express();
 
@@ -23,12 +22,23 @@ if (process.env.NODE_ENV === 'development') {
     });
     require('mongoose').set('debug', true).set('useFindAndModify', false);
 }
-// app.use('/api', require('./routes'));
-app.use("/people", require("./routes/index"));
-/**
- * Exports express
- * @public
- */
+app.use('/', require('./routes'));
+app.get('/users', (req, res) => {
+
+    let users = ["Ema", "Janko", "Petko", "Marko"];
+    res.send({
+        users: users
+    });
+});
+
+
+// const port = process.env.PORT || 5000;
+
+// app.listen(port, () => console.log(`Server started on port ${port}`));
+// /**
+//  * Exports express
+//  * @public
+//  */
 module.exports = app;
 
 
@@ -62,7 +72,8 @@ module.exports = app;
 // // Connect to Mongo
 // mongoose
 //     .connect(
-//         'mongodb+srv://emili:APLKiH5YV45r9hq@diplomski.vgboc.mongodb.net/hrapp?retryWrites=true&w=majority',
+//         // 'mongodb+srv://emili:APLKiH5YV45r9hq@diplomski.vgboc.mongodb.net/hrapp?retryWrites=true&w=majority',
+//         'mongodb://localhost:27017/diplomski',
 //         {
 //             useNewUrlParser: true,
 //             useUnifiedTopology: true
@@ -75,7 +86,8 @@ module.exports = app;
 //     });
 
 // // Use Routes
-// app.use("/people", require('../src/routes/index'));
+// // app.use("/", require('../src/routes/index'));
+// app.use('/', require('./routes'));
 
 // //Warnings set false
 // mongoose.set("useFindAndModify", false);

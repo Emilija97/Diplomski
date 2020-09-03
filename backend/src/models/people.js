@@ -1,21 +1,45 @@
-const mongo = require("mongoose");
+const mongoose = require("mongoose");
 
-const people = mongo.Schema({
-    id: String,
-    fullName: String,
-    imageSrc: String,
-    position: String,
-    status: Number,
-    type: Number,
-    birthDate: String,
-    homeAddress: String,
-    enrolmentDate: String,
-    email: String,
-    phone: String,
-    salary: String
-}, {
-    collection: "people"
-});
-people.index({ "$**": "text" }); //We need $text option for search
+const schema = new mongoose.Schema({
+    fullName: {
+        type: String,
+        required: true
+    },
+    imageSrc: {
+        type: String,
+    },
+    position: {
+        type: String,
+    },
+    status: {
+        type: Number,
+    },
+    type: {
+        type: Number,
+    },
+    birthDate: {
+        type: String,
+    },
+    homeAddress: {
+        type: String,
+    },
+    enrolmentDate: {
+        type: String,
+    },
+    email: {
+        type: String,
+    },
+    phone: {
+        type: String,
+    },
+    salary: {
+        type: String,
+    },
+},
+    {
+        timestamps: true,
+        minimize: false,
+    },
+);
 
-module.exports = mongo.model("People", people, "people");
+module.exports = mongoose.model('People', schema, 'people');
