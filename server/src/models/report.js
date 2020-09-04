@@ -7,7 +7,6 @@ const schema = new mongoose.Schema({
     },
     personId: {
         type: String,
-        required: true,
     },
     year: {
         type: Number,
@@ -27,5 +26,6 @@ const schema = new mongoose.Schema({
         minimize: false,
     },
 );
+// schema.index({ '$**': 'text' }); //for option search for mongodb atlas
 
 module.exports = mongoose.model('Report', schema, 'reports');

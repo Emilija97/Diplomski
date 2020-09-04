@@ -9,14 +9,15 @@ const { Report } = require('models');
 // @route   GET reports
 // @desc    Get All Reports
 // @access  Public
-router.get("/year/:year", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
     try {
         console.log("Usao sam u report");
-        const { year } = req.params;
+        const query = req.query;
 
-        const reports = await Report.find({ year }).lean().exec();
-
-        return res.status(200).json(reports);
+        if (query) {
+            const reports = await Report.find(query).lean().exec();
+            return res.status(200).json(reports);
+        }
     }
     catch (e) {
         logger.error(e);
