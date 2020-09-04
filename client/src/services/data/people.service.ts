@@ -3,7 +3,7 @@ import { switchMap } from "rxjs/operators";
 import { User, UserStatus } from "../../people/store/user-state";
 import { deleteMany, getAll, getOne, updateOne } from "./repository.service";
 
-export const PEOPLE_URL = "http://localhost:5000/people";
+export const PEOPLE_URL = "http://localhost:5000/users";
 
 export function apiGetUsers(page: number, limit: number): Observable<User[]> {
   return getAll<User>(`${PEOPLE_URL}?_page=${page}&_limit=${limit}`);
