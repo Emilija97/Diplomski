@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const userSeeder = require('./user-seeder');
+const reportSeeder = require('./report-seeder');
 require('module-alias/register');
 
 
@@ -12,7 +13,7 @@ if (!process.argv[1] || !process.argv[2]) {
 
 require('services/db')();
 
-const seeders = [userSeeder];
+const seeders = [userSeeder, reportSeeder];
 const type = process.argv[2];
 
 const promises = seeders.map(seed => seed[type]());

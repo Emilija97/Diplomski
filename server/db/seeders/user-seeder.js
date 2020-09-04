@@ -1,5 +1,5 @@
 const faker = require('faker');
-const { User } = require('models');
+const { User } = require('../../src/models/index');
 const bcrypt = require('bcrypt');
 ObjectId = require('mongodb').ObjectID;
 
@@ -21,6 +21,7 @@ module.exports = {
 
             const user = new User({
                 _id: ObjectId(userIds[i]),
+                id: `${i}`,
                 fullName: faker.name.firstName() + " " + faker.name.lastName(),
                 position: "",
                 imageSrc: "",

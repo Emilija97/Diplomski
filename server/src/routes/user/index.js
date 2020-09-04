@@ -7,7 +7,7 @@ const router = Router();
 // User Model
 const { User } = require('models');
 
-// @route   GET User
+// @route   GET users
 // @desc    Get All User
 // @access  Public
 router.get("/", async (req, res, next) => {
@@ -19,33 +19,35 @@ router.get("/", async (req, res, next) => {
     }
     catch (e) {
         logger.error(e);
-        // return res.status(500).send({
-        //     message: responses(500),
-        // });
+        return res.status(500).send({
+            message: responses(500),
+        });
     }
 });
-// router.get("/", (req, res, next) => {
-//     console.log("Usao sam");
-//     User.find()
-//         .then(doc => {
-//             const data = doc;
-//             res.status(200).json(data);
-//         })
-//         .catch(err => console.log(err));
-// });
 
-// @route   GET User
-// @desc    Get All User
+// @route   GET users/:id
+// @desc    Get User with specific id
 // @access  Public
-router.get("/:id", (req, res, next) => {
-    console.log("Usao sam");
-    const id = req.params.id;
-    User.findOne({ id })
-        .then(doc => {
-            const data = doc;
-            res.status(200).json(data);
-        })
-        .catch(err => console.log(err));
+router.get("/:id", async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const user = await User.findOne({ id }).lean().exec();
+
+        console.log(user.fullName);
+        if (!user) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        return res.status(200).send({
+            data: user,
+        });
+    }
+    catch (e) {
+        logger.error(e);
+        return res.status(500).send({
+            message: responses(500),
+        });
+    }
 });
 
 

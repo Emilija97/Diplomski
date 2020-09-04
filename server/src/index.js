@@ -23,13 +23,6 @@ if (process.env.NODE_ENV === 'development') {
     require('mongoose').set('debug', true).set('useFindAndModify', false);
 }
 app.use('/', require('./routes'));
-app.get('/users', (req, res) => {
-
-    let users = ["Ema", "Janko", "Petko", "Marko"];
-    res.send({
-        users: users
-    });
-});
 
 
 // const port = process.env.PORT || 5000;
