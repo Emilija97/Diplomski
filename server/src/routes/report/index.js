@@ -1,6 +1,7 @@
 const express = require("express");
 const Router = require('services/modelBindings');
 const logger = require('services/logger');
+const responses = require('services/responses');
 
 const router = Router();
 // Report Model
@@ -11,7 +12,6 @@ const { Report } = require('models');
 // @access  Public
 router.get("/", async (req, res, next) => {
     try {
-        console.log("Usao sam u report");
         const query = req.query;
 
         if (query) {

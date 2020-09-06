@@ -1,7 +1,7 @@
-const express = require("express");
+
 const Router = require('services/modelBindings');
 const logger = require('services/logger');
-var mongoose = require("mongoose");
+const responses = require('services/responses');
 
 const router = Router();
 // User Model

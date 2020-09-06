@@ -5,7 +5,7 @@ import { Person } from "../../employee/store/person-state";
 import { PERSON_URL } from "./person.service";
 import { addOne, deleteOne, getAll, updateOne } from "./repository.service";
 
-export const ACTIVITY_URL = "http://localhost:4000/activities";
+export const ACTIVITY_URL = "http://localhost:5000/activities";
 
 export function apiAddActivity(activity: Activity, person?: Person): Observable<string> {
   if (person == null) {
