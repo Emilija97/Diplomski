@@ -54,18 +54,14 @@ router.post("/", async (req, res) => {
 // @access  Public
 router.delete("/:id", async (req, res, next) => {
     try {
-        const { id } = req.params.id;
-        console.log(id);
-
-        const activity = await Activity.find({ id })
-            .lean()
-            .exec();
+        const { id } = req.params;
+        const activity = await Activity.findOne({ id }).lean().exec();
 
         if (!activity) {
             return res.status(404).send({ message: 'Activity not found' });
         }
-        console.log(activity);
-        // await activity.remove();
+
+        await Activity.deleteOne({ id }).lean().exec();
 
         return res.status(200).json(activity);
     }
