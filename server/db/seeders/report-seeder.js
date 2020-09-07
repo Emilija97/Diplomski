@@ -1,5 +1,5 @@
 const faker = require('faker');
-const { Report } = require('../../src/models/index');
+const { Report, User } = require('../../src/models/index');
 ObjectId = require('mongodb').ObjectID;
 
 const reportsIds = [
@@ -12,6 +12,8 @@ const reportsIds = [
     '569ed8269353e9f4c51617b2',
     '569ed8269353e9f4c51617b3',
 ]
+
+const userId = '569ed8269353e9f4c51617a3';
 
 const months = [
     'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'
@@ -26,11 +28,10 @@ module.exports = {
 
             const report = new Report({
                 _id: ObjectId(reportsIds[i]),
-                id: `${i}`,
-                personId: '0',
+                personId: await User.findById(userId),
                 year: 2020,
                 norm: 160,
-                hours: faker.random.number(120, 180),
+                hours: faker.random.number({ min: 120, max: 180 }),
                 month: months[i]
             });
 

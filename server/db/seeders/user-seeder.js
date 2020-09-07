@@ -21,10 +21,9 @@ module.exports = {
 
             const user = new User({
                 _id: ObjectId(userIds[i]),
-                id: `${i}`,
                 fullName: faker.name.firstName() + " " + faker.name.lastName(),
-                position: "",
-                imageSrc: "",
+                position: faker.name.jobDescriptor(),
+                imageSrc: faker.random.arrayElement(['sl1.jpg', 'sl2.jpg']),
                 status: faker.random.arrayElement([1, 2, 3, 4]),
                 type: faker.random.arrayElement([1, 2, 3, 4]),
                 birthDate: "",
@@ -32,8 +31,8 @@ module.exports = {
                 enrolmentDate: "",
                 email: `user${i}@test.com`,
                 password: bcrypt.hashSync('test', passwordHashSaltRounds),
-                phone: "",
-                salary: '',
+                phone: faker.phone.phoneNumber,
+                salary: `${faker.random.number({ min: 450, max: 700 })}`,
             });
 
             insertData.push(user.save());

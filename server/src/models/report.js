@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-    id: {
-        type: String,
-        unique: true,
-    },
+    // id: {
+    //     type: String
+    // },
     personId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     year: {
         type: Number,
