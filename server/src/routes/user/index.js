@@ -71,8 +71,8 @@ router.put("/:id", async (req, res, next) => {
         const { id } = req.params;
         const { ...update } = req.body;
 
-        const _id = id.toObject();
-        const updatedUser = await User.findByIdAndUpdate(_id, {
+        // const _id = id.toObject();
+        const updatedUser = await User.findByIdAndUpdate(id, {
             $set: {
                 ...update,
             }
@@ -81,9 +81,10 @@ router.put("/:id", async (req, res, next) => {
         if (!updatedUser) {
             return res.status(400).send({ message: responses(400) });
         }
-        const result = createUserId(user);
-        delete user._id;
-        return res.status(200).json(result);
+        // const result = createUserId(user);
+        // delete user._id;
+        // return res.status(200).json(result);
+        return res.status(200).json({ data: updatedUser });
     }
     catch (e) {
         logger.error(e);

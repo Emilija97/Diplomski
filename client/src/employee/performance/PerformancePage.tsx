@@ -23,7 +23,8 @@ function PerformancePage() {
   const reports: Report[] = useSelector((state: RootState) => selectReports(state));
 
   useEffect(() => {
-    dispatch(loadReportsInit(person.id as string, year));
+    if (person.id)
+      dispatch(loadReportsInit(person.id as string, year));
   }, [dispatch, person, year]);
 
   const nextYear = () => {

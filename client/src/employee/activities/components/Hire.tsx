@@ -47,7 +47,7 @@ function Hire(props: Props) {
       fullName: props.personState.fullName,
       position: props.personState.position,
       status: props.personState.status,
-      imageSrc: props.personState.imageSrc,
+      imageSrc: "",
       birthDate: props.personState.birthDate,
       homeAddress: props.personState.homeAddress,
       enrolmentDate: props.personState.enrolmentDate,

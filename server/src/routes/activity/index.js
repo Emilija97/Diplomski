@@ -6,6 +6,7 @@ const responses = require('services/responses');
 const router = Router();
 // Activity Model
 const { Activity } = require('models');
+ObjectId = require("mongodb").ObjectID;
 
 const createMappingObject = (object) => {
     return { ...object, id: object._id }
@@ -46,6 +47,8 @@ router.post("/", async (req, res) => {
         });
 
         await activity.save();
+
+        res.status(200).json(activity);
     }
     catch (e) {
         logger.error(e);
@@ -61,13 +64,16 @@ router.post("/", async (req, res) => {
 router.delete("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
-        const activity = await Activity.findOne({ id }).lean().exec();
+
+        const _id = ObjectId(id);
+        const activity = await Activity.findOne({ _id }).lean().exec();
+
 
         if (!activity) {
             return res.status(404).send({ message: 'Activity not found' });
         }
 
-        await Activity.deleteOne({ id }).lean().exec();
+        await Activity.deleteOne({ _id: id }).lean().exec();
 
         return res.status(200).json(activity);
     }
@@ -87,7 +93,8 @@ router.put("/:id", async (req, res, next) => {
         const { id } = req.params;
         const { ...update } = req.body;
 
-        const updatedActivity = await Activity.findByIdAndUpdate(id, {
+        const _id = ObjectId(id);
+        const updatedActivity = await Activity.findByIdAndUpdate(_id, {
             $set: {
                 ...update,
             }
