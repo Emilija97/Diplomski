@@ -36,7 +36,7 @@ function ListItem(props: ListItemProps) {
     <div ref={cardRef}
       className={"list-item " + props.className + (props.selected ? " list-item--selected" : "")}>
       <div className="list-item__image-container">
-        <img className="list-item__image" alt="" src={props.image} />
+        <img className="list-item__image" alt="" src={`http://localhost:5000/uploads/${props.image}`} />
         <img className="list-item__overlay-image" hidden={!props.selected} alt="" src={MarkedImage} />
       </div>
       <div className="list-item__info">

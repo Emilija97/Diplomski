@@ -25,7 +25,8 @@ function HistoryPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(loadActivities(person.id));
+    if (person !== undefined)
+      dispatch(loadActivities(person.id));
   }, [dispatch, person.id]);
 
   useEffect(() => {

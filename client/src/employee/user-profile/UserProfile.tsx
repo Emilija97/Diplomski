@@ -25,7 +25,8 @@ function UserProfile() {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getPerson(id as string));
+    if (id !== undefined)
+      dispatch(getPerson(id as string));
   }, [dispatch, id]);
 
   const onTabChange = (event: any, tabValue: any) => {

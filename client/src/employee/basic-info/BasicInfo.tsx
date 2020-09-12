@@ -25,7 +25,6 @@ function BasicInfo() {
   };
 
   const editProfile = () => {
-    console.log(history);
     history.push(`/create-edit-person/${person.id}`);
   };
 

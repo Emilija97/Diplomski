@@ -2,7 +2,7 @@
 const Router = require('services/modelBindings');
 const logger = require('services/logger');
 const responses = require('services/responses');
-
+const upload = require('services/multer');
 const router = Router();
 // User Model
 const { User } = require('models');
@@ -66,10 +66,18 @@ router.get("/:id", async (req, res, next) => {
 // @route   PUT users/:id
 // @desc    Update An Activity using ID
 // @access  Public
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", upload.single('imageSrc'), async (req, res, next) => {
     try {
         const { id } = req.params;
         const { ...update } = req.body;
+
+        // console.log(update);
+        // if (req.file) {
+        //     const image = req.file;
+        //     console.log(image.filename);
+
+        //     update.imageSrc = image;
+        // }
 
         // const _id = id.toObject();
         const updatedUser = await User.findByIdAndUpdate(id, {
@@ -81,10 +89,10 @@ router.put("/:id", async (req, res, next) => {
         if (!updatedUser) {
             return res.status(400).send({ message: responses(400) });
         }
-        // const result = createUserId(user);
-        // delete user._id;
-        // return res.status(200).json(result);
-        return res.status(200).json({ data: updatedUser });
+        const result = createUserId(updatedUser);
+        delete updatedUser._id;
+        return res.status(200).json(result);
+        // return res.status(200).json({ data: updatedUser });
     }
     catch (e) {
         logger.error(e);

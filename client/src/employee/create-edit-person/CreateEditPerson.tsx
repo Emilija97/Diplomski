@@ -29,12 +29,13 @@ function CreateEditPerson() {
   const [selectedItem, setSelectedItem] = useState(
     id === undefined || user.status === UserStatus.EMPLOYEE ? "employee" : "candidate");
 
-  const [cover, setCover] = useState(id === undefined ? IllustrationImage : user.imageSrc);
-  const [avatar, setAvatar] = useState(id === undefined ? CameraImage : user.imageSrc);
+  const [cover, setCover] = useState(id === undefined ? "illustration.png" : user.imageSrc);
+  const [avatar, setAvatar] = useState(id === undefined ? "camera.png" : user.imageSrc);
+  // const [file, setFile] = useState();
 
   const onAcceptClick = () => {
     const person: Person = {
-      id: '',
+      id: id === undefined ? '' : id,
       fullName: formik.values.fullName as string,
       position: formik.values.role as string,
       status: formik.values.status as UserStatus,
@@ -49,7 +50,7 @@ function CreateEditPerson() {
 
     id === undefined ? dispatch(addNewPerson(person)) : dispatch(updatePerson(id, person));
 
-    history.goBack();
+    history.push(`/user-profile/${id}`);
   };
 
   const formik = useFormik(createEditFormikConfig(onAcceptClick, (id === undefined ? undefined : user)));
@@ -61,14 +62,18 @@ function CreateEditPerson() {
   const changeImage = (event: any) => {
     event.preventDefault();
 
-    let reader = new FileReader();
-    let file = event.target.files[0];
+    // let reader = new FileReader();
+    // let file = event.target.files[0];
 
-    reader.onloadend = () => {
-      setAvatar(reader.result as string);
-      setCover(reader.result as string);
-    };
-    reader.readAsDataURL(file);
+    // reader.onloadend = () => {
+    //   setAvatar(reader.result as string);
+    //   setCover(reader.result as string);
+    // };
+    // reader.readAsDataURL(file);
+
+    // console.log(event.target.files[0]);
+    setAvatar(event.target.files[0].name);
+    // setCover(event.target.files[0].name);
   };
 
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -156,7 +161,6 @@ function CreateEditPerson() {
           </div>
 
           <hr className="create-edit-person__content-underline"></hr>
-          {console.log(formik)}
           <FormAction
             mode={true}
             rejectBtnTitle="Cancel"

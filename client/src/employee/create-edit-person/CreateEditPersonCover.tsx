@@ -18,7 +18,7 @@ function CreateEditPersonCover(props: Props) {
   const history = useHistory();
 
   const onBackClick = () => {
-    history.goBack();
+    history.push('/people');
   };
 
   return (
@@ -26,7 +26,7 @@ function CreateEditPersonCover(props: Props) {
       <div className="add-new-person-cover__content">
         <img
           className="add-new-person-cover__background-image" alt=""
-          src={props.cover}
+          src={`http://localhost:5000/uploads/${props.cover}`}
         ></img>
         <button className="ni-button ni-button__text ni-button__text--transparent add-new-person-cover__back"
           onClick={() => onBackClick()}>
@@ -37,7 +37,7 @@ function CreateEditPersonCover(props: Props) {
 						ni-button__circle--large ni-button__circle--primary">
             <input type="file" accept="image/*" className="add-new-person-cover__input-file"
               onChange={props.changeImage} />
-            <img alt="" src={props.avatar} className="add-new-person-cover__camera-img" />
+            <img alt="" src={`http://localhost:5000/uploads/${props.avatar}`} className="add-new-person-cover__camera-img" />
 
           </label>
 
