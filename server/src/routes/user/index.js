@@ -63,23 +63,50 @@ router.get("/:id", async (req, res, next) => {
     }
 });
 
+// @route   POST users/upload/:id
+// @desc    Update An User using ID and Upload Image
+// @access  Public
+router.post("/upload/:id", upload.single('image'), async (req, res, next) => {
+    try {
+        console.log("usao sam u post metodu");
+        const { id } = req.params;
+        const person = JSON.parse(req.body.data);
+        let file;
+        if (req.file) {
+            file = req.file.filename;
+            person.imageSrc = file;
+        }
+
+        const updatedUser = await User.findByIdAndUpdate(id, {
+            $set: {
+                ...person,
+            }
+        }, { new: true, useFindAndModify: false });
+
+        if (!updatedUser) {
+            return res.status(400).send({ message: responses(400) });
+        }
+        const result = createUserId(updatedUser);
+        delete updatedUser._id;
+        return res.status(200).json(result);
+
+    }
+    catch (e) {
+        logger.error(e);
+        return res.status(500).send({
+            message: responses(500),
+        });
+    }
+});
+
 // @route   PUT users/:id
 // @desc    Update An Activity using ID
 // @access  Public
-router.put("/:id", upload.single('imageSrc'), async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
         const { ...update } = req.body;
 
-        // console.log(update);
-        // if (req.file) {
-        //     const image = req.file;
-        //     console.log(image.filename);
-
-        //     update.imageSrc = image;
-        // }
-
-        // const _id = id.toObject();
         const updatedUser = await User.findByIdAndUpdate(id, {
             $set: {
                 ...update,

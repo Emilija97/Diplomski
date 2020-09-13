@@ -22,7 +22,7 @@ function UserProfile() {
   const [selectedTab, setSelectedTab] = useState(1);
   const person = useSelector((state: RootState) => state.person);
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
     if (id !== undefined)

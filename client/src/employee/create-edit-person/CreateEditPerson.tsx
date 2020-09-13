@@ -18,7 +18,7 @@ import CreateEditPersonCover from "./CreateEditPersonCover";
 
 function CreateEditPerson() {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const user = useSelector((state: RootState) => state.person);
   const history = useHistory();
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
@@ -31,7 +31,7 @@ function CreateEditPerson() {
 
   const [cover, setCover] = useState(id === undefined ? "illustration.png" : user.imageSrc);
   const [avatar, setAvatar] = useState(id === undefined ? "camera.png" : user.imageSrc);
-  // const [file, setFile] = useState();
+  const [file, setFile] = useState();
 
   const onAcceptClick = () => {
     const person: Person = {
@@ -48,7 +48,7 @@ function CreateEditPerson() {
       salary: (id === undefined ? undefined : user.salary)
     };
 
-    id === undefined ? dispatch(addNewPerson(person)) : dispatch(updatePerson(id, person));
+    id === undefined ? dispatch(addNewPerson(person)) : dispatch(updatePerson(id, person, file));
 
     history.push(`/user-profile/${id}`);
   };
@@ -72,7 +72,7 @@ function CreateEditPerson() {
     // reader.readAsDataURL(file);
 
     // console.log(event.target.files[0]);
-    setAvatar(event.target.files[0].name);
+    setFile(event.target.files[0]);
     // setCover(event.target.files[0].name);
   };
 
@@ -84,7 +84,7 @@ function CreateEditPerson() {
     formik.setFieldValue('position', event.target.value);
   }
 
-  const onUploadFile = (event: ChangeEvent<HTMLInputElement>) => {
+  const onUploadFile = (event: any) => {
     event.preventDefault();
     console.log("Upload a PDF file");
   }
@@ -100,7 +100,7 @@ function CreateEditPerson() {
 
   return (
     <div className="create-edit-person">
-      <form onSubmit={formik.handleSubmit} className="create-edit-person__form">
+      <form onSubmit={formik.handleSubmit} className="create-edit-person__form" encType="multipart/form-data">
         <CreateEditPersonCover
           cover={cover}
           avatar={avatar}

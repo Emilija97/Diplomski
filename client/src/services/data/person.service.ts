@@ -1,4 +1,4 @@
-import { Observable, of } from "rxjs";
+import { from, Observable, of } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { UserType } from "../../auth/store";
 import { Person } from "../../employee/store/person-state";
@@ -28,7 +28,7 @@ export function apiGetPerson(id: string): Observable<Person> {
   return getOne<Person>(`${PERSON_URL}/${id}`);
 }
 
-export function apiUpdatePerson(id: string, person: Person): Observable<Response> {
+export function apiUpdatePerson(id: string, person: Person, file: File): Observable<Response> {
   const user: User = {
     id: person.id,
     fullName: person.fullName,
@@ -37,7 +37,21 @@ export function apiUpdatePerson(id: string, person: Person): Observable<Response
     status: person.status,
     type: UserType.EMPLOYEE
   }
-  return updateOne<Person>(`${PERSON_URL}/${id}`, person).pipe(
-    switchMap(() => updateOne<User>(`${PEOPLE_URL}/${id}`, user))
-  );
+  console.log(file);
+  const formdata = new FormData();
+  formdata.append('image', file);
+  formdata.append('data', JSON.stringify(person));
+  // formdata.append('data', new Blob([JSON.stringify(person)]));
+  // return fetch(`${PERSON_URL}/upload`, {
+  //   method: "POST",
+  //   body: formdata
+  // });
+  return from(fetch(`${PERSON_URL}/upload/${id}`, {
+    method: "POST",
+    body: formdata
+  }));
+  // return addOne<any>(`${PERSON_URL}/upload`, formdata);
+  // return updateOne<Person>(`${PERSON_URL}/${id}`, person).pipe(
+  //   switchMap(() => updateOne<User>(`${PEOPLE_URL}/${id}`, user))
+  // );
 }

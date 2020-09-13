@@ -37,7 +37,7 @@ const cateringMenuItems: ListItemProps[] = [
 function Catering() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { cateringId } = useParams();
+  const { cateringId } = useParams<{ cateringId: string }>();
   const catering = useSelector((state: RootState) => selectCatering(state, cateringId as string));
 
   useEffect(() => {
