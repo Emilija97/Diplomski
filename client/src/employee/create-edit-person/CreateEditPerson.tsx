@@ -31,9 +31,11 @@ function CreateEditPerson() {
 
   const [cover, setCover] = useState(id === undefined ? "illustration.png" : user.imageSrc);
   const [avatar, setAvatar] = useState(id === undefined ? "camera.png" : user.imageSrc);
+  const [cv, setCv] = useState(id === undefined ? "" : user.cv);
   const [file, setFile] = useState();
-  const [profile, setProfile] = useState("");
   const [mode, setMode] = useState(false);
+  const [cvFile, setCvFile] = useState();
+  const [cvName, setCvName] = useState("");
 
   const onAcceptClick = () => {
     const person: Person = {
@@ -47,10 +49,11 @@ function CreateEditPerson() {
       enrolmentDate: formik.values.enrolmentDate as string,
       email: formik.values.email as string,
       phone: formik.values.phone as string,
-      salary: (id === undefined ? undefined : user.salary)
+      salary: (id === undefined ? undefined : user.salary),
+      cv: cv
     };
 
-    id === undefined ? dispatch(addNewPerson(person)) : dispatch(updatePerson(id, person, file));
+    id === undefined ? dispatch(addNewPerson(person)) : dispatch(updatePerson(id, person, file, cvFile));
 
     history.push(`/user-profile/${id}`);
   };
@@ -73,9 +76,8 @@ function CreateEditPerson() {
 
     reader.readAsDataURL(file);
     setMode(true);
-    // console.log(event.target.files[0]);
+
     setFile(event.target.files[0]);
-    // setCover(event.target.files[0].name);
   };
 
   const changeName = (event: ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +90,8 @@ function CreateEditPerson() {
 
   const onUploadFile = (event: any) => {
     event.preventDefault();
-    console.log("Upload a PDF file");
+    setCvFile(event.target.files[0]);
+    setCvName(event.target.files[0].name);
   }
 
   const statusChange = (item: string) => {
@@ -150,7 +153,7 @@ function CreateEditPerson() {
           <label className="create-edit-person__content-label">Link to CV</label>
           <div className="create-edit-person__content-upload-cv">
             <label className="create-edit-person__content-label--upload">
-              Upload a pdf file
+              {cvName ? cvName : "Upload a pdf file"}
             </label>
             <div className="create-edit-person__content-image-upload">
               <label className="create-edit-person__content-custom-file-upload">

@@ -53,10 +53,11 @@ export interface UpdatePerson extends Action {
   id: string;
   person: Person;
   file: any;
+  cvFile: any;
 }
 
-export function updatePerson(id: string, person: Person, file: any): PersonsActions {
-  return { type: PersonsActionTypes.UPDATE_PERSON, id, person, file }
+export function updatePerson(id: string, person: Person, file: any, cvFile: any): PersonsActions {
+  return { type: PersonsActionTypes.UPDATE_PERSON, id, person, file, cvFile }
 }
 
 export interface UpdatePersonSuccess extends Action {

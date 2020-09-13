@@ -30,7 +30,7 @@ const getPersonEpic = (
 const updatePersonEpic = (action$: Observable<UpdatePerson>, state: StateObservable<RootState>): Observable<Action> => {
   return action$.pipe(
     ofType(PersonsActionTypes.UPDATE_PERSON),
-    switchMap(action => apiUpdatePerson(action.id, action.person, action.file).pipe(
+    switchMap(action => apiUpdatePerson(action.id, action.person, action.file, action.cvFile).pipe(
       map(() => updatePersonSuccess(action.person))
     ))
   )

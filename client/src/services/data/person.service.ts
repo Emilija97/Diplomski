@@ -28,7 +28,7 @@ export function apiGetPerson(id: string): Observable<Person> {
   return getOne<Person>(`${PERSON_URL}/${id}`);
 }
 
-export function apiUpdatePerson(id: string, person: Person, file: File): Observable<Response> {
+export function apiUpdatePerson(id: string, person: Person, file: File, cvFile: File): Observable<Response> {
   const user: User = {
     id: person.id,
     fullName: person.fullName,
@@ -37,9 +37,10 @@ export function apiUpdatePerson(id: string, person: Person, file: File): Observa
     status: person.status,
     type: UserType.EMPLOYEE
   }
-  console.log(file);
+  console.log(cvFile);
   const formdata = new FormData();
   formdata.append('image', file);
+  formdata.append('cv', cvFile);
   formdata.append('data', JSON.stringify(person));
   // formdata.append('data', new Blob([JSON.stringify(person)]));
   // return fetch(`${PERSON_URL}/upload`, {

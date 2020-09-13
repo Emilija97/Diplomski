@@ -50,6 +50,9 @@ const schema = new mongoose.Schema({
     salary: {
         type: String,
     },
+    cv: {
+        type: String,
+    },
 },
     {
         timestamps: true,

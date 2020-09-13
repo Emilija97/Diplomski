@@ -66,15 +66,21 @@ router.get("/:id", async (req, res, next) => {
 // @route   POST users/upload/:id
 // @desc    Update An User using ID and Upload Image
 // @access  Public
-router.post("/upload/:id", upload.single('image'), async (req, res, next) => {
+router.post("/upload/:id", upload.fields([{ name: 'image', maxCount: 1 }, { name: 'cv', maxCount: 1 }]), async (req, res, next) => {
     try {
         console.log("usao sam u post metodu");
         const { id } = req.params;
         const person = JSON.parse(req.body.data);
-        let file;
-        if (req.file) {
-            file = req.file.filename;
-            person.imageSrc = file;
+
+        console.log(req.files['image']);
+        if (req.files['image']) {
+            const image = req.files['image'][0];
+            person.imageSrc = image.filename;
+        }
+
+        if (req.files['cv']) {
+            const cv = req.files['cv'][0];
+            person.cv = cv.filename;
         }
 
         const updatedUser = await User.findByIdAndUpdate(id, {
@@ -89,6 +95,27 @@ router.post("/upload/:id", upload.single('image'), async (req, res, next) => {
         const result = createUserId(updatedUser);
         delete updatedUser._id;
         return res.status(200).json(result);
+        // console.log("usao sam u post metodu");
+        // const { id } = req.params;
+        // const person = JSON.parse(req.body.data);
+        // let file;
+        // if (req.file) {
+        //     file = req.file.filename;
+        //     person.imageSrc = file;
+        // }
+
+        // const updatedUser = await User.findByIdAndUpdate(id, {
+        //     $set: {
+        //         ...person,
+        //     }
+        // }, { new: true, useFindAndModify: false });
+
+        // if (!updatedUser) {
+        //     return res.status(400).send({ message: responses(400) });
+        // }
+        // const result = createUserId(updatedUser);
+        // delete updatedUser._id;
+        // return res.status(200).json(result);
 
     }
     catch (e) {

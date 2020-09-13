@@ -1,3 +1,4 @@
+import { datePickerDefaultProps } from "@material-ui/pickers/constants/prop-types";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -21,7 +22,17 @@ function BasicInfo() {
   }, [person.status]);
 
   const clickOnLink = () => {
-    console.log("Get CV from some url");
+    // console.log("Get CV from some url " + person.cv);
+
+    // const file = `http://localhost:5000/uploads/${person.cv}`;
+
+    // console.log(file);
+    // var binaryData = [];
+    // binaryData.push(file);
+    // const fileURL = URL.createObjectURL(new Blob(binaryData, { type: "application/doc" }))
+    // window.open(fileURL);
+    // const fileURL = URL.createObjectURL(file);
+    // window.open(fileURL);
   };
 
   const editProfile = () => {
@@ -64,9 +75,10 @@ function BasicInfo() {
       </div>
       <div className="basic-info__item">
         <label className="basic-info__item--title">Link to CV:</label>
-        <a className="basic-info__item--link" onClick={() => clickOnLink()}>
-          examplecv.com
-        </a>
+
+        <a href={`http://localhost:5000/uploads/${person.cv}`} target="_blank" type="application/pdf"
+          className="basic-info__item--link"
+        >{person.fullName} CV</a>
       </div>
 
       <div className="basic-info__edit-btn">
