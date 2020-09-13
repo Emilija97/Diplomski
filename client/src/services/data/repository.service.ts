@@ -8,7 +8,7 @@ interface Entity {
 
 function fetchApi<T>(method: string, url: string, data?: T): Observable<Response> {
   return from(fetch(url, {
-    // headers: { 'Content-Type': "application/json" },
+    headers: { 'Content-Type': "application/json" },
     method: method,
     body: JSON.stringify(data)
   }));

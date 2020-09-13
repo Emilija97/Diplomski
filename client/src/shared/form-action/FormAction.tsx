@@ -15,7 +15,7 @@ function FormAction(props: FormAction) {
   return (
     <div className="form-action">
       <button className="ni-button ni-button--small ni-button__text ni-button__text--dark form-action__buttons"
-        onClick={props.onRejectClick}>
+        onClick={props.onRejectClick} type="button">
         {props.rejectBtnTitle}</button>
       <button className={`ni-button ni-button--small
        ${props.mode ?

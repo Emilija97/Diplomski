@@ -107,6 +107,7 @@ router.put("/:id", async (req, res, next) => {
         const { id } = req.params;
         const { ...update } = req.body;
 
+        console.log("usao sam u update");
         const updatedUser = await User.findByIdAndUpdate(id, {
             $set: {
                 ...update,

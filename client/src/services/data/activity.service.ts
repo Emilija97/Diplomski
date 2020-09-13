@@ -8,12 +8,14 @@ import { addOne, deleteOne, getAll, updateOne } from "./repository.service";
 export const ACTIVITY_URL = "http://localhost:5000/activities";
 
 export function apiAddActivity(activity: Activity, person?: Person): Observable<string> {
+  console.log("usao sam u add " + activity);
   if (person == null) {
     return addOne<Activity>(`${ACTIVITY_URL}`, activity).pipe(
       switchMap(id => of(id))
     );
   }
   else {
+    console.log("Activity postoji person");
     return forkJoin(
       updateOne<Person>(`${PERSON_URL}/${person?.id}`, person),
       addOne<Activity>(`${ACTIVITY_URL}`, activity)

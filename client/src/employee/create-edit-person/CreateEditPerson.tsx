@@ -32,6 +32,8 @@ function CreateEditPerson() {
   const [cover, setCover] = useState(id === undefined ? "illustration.png" : user.imageSrc);
   const [avatar, setAvatar] = useState(id === undefined ? "camera.png" : user.imageSrc);
   const [file, setFile] = useState();
+  const [profile, setProfile] = useState("");
+  const [mode, setMode] = useState(false);
 
   const onAcceptClick = () => {
     const person: Person = {
@@ -62,15 +64,15 @@ function CreateEditPerson() {
   const changeImage = (event: any) => {
     event.preventDefault();
 
-    // let reader = new FileReader();
-    // let file = event.target.files[0];
+    let reader = new FileReader();
+    let file = event.target.files[0];
 
-    // reader.onloadend = () => {
-    //   setAvatar(reader.result as string);
-    //   setCover(reader.result as string);
-    // };
-    // reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setCover(reader.result as string);
+    };
 
+    reader.readAsDataURL(file);
+    setMode(true);
     // console.log(event.target.files[0]);
     setFile(event.target.files[0]);
     // setCover(event.target.files[0].name);
@@ -104,6 +106,7 @@ function CreateEditPerson() {
         <CreateEditPersonCover
           cover={cover}
           avatar={avatar}
+          mode={mode}
           name={formik.values.fullName as string}
           role={formik.values.role as string}
           changeName={changeName}

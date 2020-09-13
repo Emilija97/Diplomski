@@ -33,6 +33,7 @@ function Contact(props: Props) {
   }
 
   const onAcceptClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault();
     const activity: Activity = {
       id: props.id === undefined ? "" : props.id,
       personId: props.personState.id,
