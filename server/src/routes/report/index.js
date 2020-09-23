@@ -2,8 +2,7 @@ const express = require("express");
 const Router = require('services/modelBindings');
 const logger = require('services/logger');
 const responses = require('services/responses');
-// ObjectId = require('mongodb').ObjectID;
-const mongoose = require('mongoose');
+
 
 const router = Router();
 // Report Model
@@ -20,7 +19,7 @@ const createMappingObject = (object) => {
 router.get("/", async (req, res, next) => {
     try {
         const year = req.query.year;
-        console.log(" 22.;inija " + " " + year);
+
         const id = req.query.personId;
         const personId = ObjectId(`${id}`);
         if (year && personId) {

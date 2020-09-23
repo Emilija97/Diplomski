@@ -42,17 +42,9 @@ export function apiUpdatePerson(id: string, person: Person, file: File, cvFile: 
   formdata.append('image', file);
   formdata.append('cv', cvFile);
   formdata.append('data', JSON.stringify(person));
-  // formdata.append('data', new Blob([JSON.stringify(person)]));
-  // return fetch(`${PERSON_URL}/upload`, {
-  //   method: "POST",
-  //   body: formdata
-  // });
+
   return from(fetch(`${PERSON_URL}/upload/${id}`, {
     method: "POST",
     body: formdata
   }));
-  // return addOne<any>(`${PERSON_URL}/upload`, formdata);
-  // return updateOne<Person>(`${PERSON_URL}/${id}`, person).pipe(
-  //   switchMap(() => updateOne<User>(`${PEOPLE_URL}/${id}`, user))
-  // );
 }

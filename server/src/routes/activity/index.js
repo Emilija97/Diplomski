@@ -17,7 +17,6 @@ const createMappingObject = (object) => {
 // @access  Public
 router.get("/", async (req, res, next) => {
     try {
-        console.log("Usao sam u report");
         const query = req.query;
 
         if (query) {

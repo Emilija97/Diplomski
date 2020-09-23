@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-    // id: {
-    //     type: String
-    // },
     personId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -26,6 +23,5 @@ const schema = new mongoose.Schema({
         minimize: false,
     },
 );
-// schema.index({ '$**': 'text' }); //for option search for mongodb atlas
 
 module.exports = mongoose.model('Report', schema, 'reports');

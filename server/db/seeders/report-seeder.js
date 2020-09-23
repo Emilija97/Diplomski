@@ -16,7 +16,7 @@ const reportsIds = [
 const userId = '569ed8269353e9f4c51617a3';
 
 const months = [
-    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
 ]
 
 
@@ -30,7 +30,7 @@ module.exports = {
                 _id: ObjectId(reportsIds[i]),
                 personId: await User.findById(userId),
                 year: 2020,
-                norm: 160,
+                norm: faker.random.number({ min: 160, max: 180 }),
                 hours: faker.random.number({ min: 120, max: 180 }),
                 month: months[i]
             });

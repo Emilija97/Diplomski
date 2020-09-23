@@ -31,8 +31,9 @@ module.exports = {
                 enrolmentDate: "",
                 email: `user${i}@test.com`,
                 password: bcrypt.hashSync('test', passwordHashSaltRounds),
-                phone: faker.phone.phoneNumber,
+                phone: faker.phone.phoneNumberFormat(0),
                 salary: `${faker.random.number({ min: 450, max: 700 })}`,
+                cv: faker.random.arrayElement(['54cae0ec03e0a0191600031330366.pdf', '69a9343142bf8ea71600864674641.doc']),
             });
 
             insertData.push(user.save());
