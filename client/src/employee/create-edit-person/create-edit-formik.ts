@@ -20,16 +20,22 @@ export const createEditFormikConfig = (onSubmit: () => void, user?: Person): For
       role: Yup.string()
         .required(REQUIRED_MESSAGE),
       birthDate: Yup.string()
+        .matches(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d{2}$/,
+          "Birth date must contain only numbers and '/' in format dd/mm/yyyy")
         .required(REQUIRED_MESSAGE),
       homeAddress: Yup.string()
         .required(REQUIRED_MESSAGE),
       enrolmentDate: Yup.string()
-        .required(REQUIRED_MESSAGE),
+        .required(REQUIRED_MESSAGE)
+        .matches(/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d{2}$/,
+          "Enrolment date must contain only numbers and '/' in format dd/mm/yyyy"),
       email: Yup.string()
         .email(WRONG_FORMAT_MESSAGE)
         .required(REQUIRED_MESSAGE),
       phone: Yup.string()
         .required(REQUIRED_MESSAGE)
+        .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+          "Phone number must contain numbers, letters are not acceptable")
 
     }),
     initialErrors: {

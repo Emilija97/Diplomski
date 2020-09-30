@@ -15,10 +15,12 @@ export enum PersonsActionTypes {
 export interface AddNewPerson extends Action {
   type: PersonsActionTypes.ADD_NEW_PERSON;
   person: Person;
+  file: any;
+  cvFile: any
 }
 
-export function addNewPerson(person: Person): PersonsActions {
-  return { type: PersonsActionTypes.ADD_NEW_PERSON, person };
+export function addNewPerson(person: Person, file: any, cvFile: any): PersonsActions {
+  return { type: PersonsActionTypes.ADD_NEW_PERSON, person, file, cvFile };
 }
 
 export interface AddNewPersonSuccess extends Action {

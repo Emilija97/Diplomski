@@ -9,7 +9,7 @@ import { AddNewPerson, addNewPersonSuccess, GetPerson, getPersonSuccess, Persons
 const addPersonEpic = (action$: Observable<AddNewPerson>, state: StateObservable<RootState>): Observable<Action> => {
   return action$.pipe(
     ofType(PersonsActionTypes.ADD_NEW_PERSON),
-    switchMap(action => apiAddPerson(action.person).pipe(
+    switchMap(action => apiAddPerson(action.person, action.file, action.cvFile).pipe(
       map(id => addNewPersonSuccess({ ...action.person, id: id }))
     ))
   )

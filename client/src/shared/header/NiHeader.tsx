@@ -11,7 +11,8 @@ interface INiHeader {
   menu: boolean,
   logo: boolean,
   title: string,
-  className?: string
+  className?: string,
+  url?: string
 }
 
 function NiHeader(props: INiHeader) {
@@ -23,7 +24,10 @@ function NiHeader(props: INiHeader) {
   }
 
   const handleBackClick = () => {
-    history.goBack();
+    if (props.url)
+      history.push(props.url);
+    else
+      history.goBack();
   }
 
   const onUserMenuClose = () => {

@@ -46,7 +46,7 @@ function Dashboard() {
     {
       title: "Work activity",
       imageSrc: WorkActivityImage,
-      url: "/work-acitivity",
+      url: "/work-activity",
       privileges: [UserType.ADMIN, UserType.HR, UserType.EMPLOYEE]
     }
   ]

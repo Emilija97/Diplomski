@@ -34,12 +34,6 @@ const schema = new mongoose.Schema({
         lowercase: true,
         unique: true,
     },
-    password: {
-        type: String,
-        required: true,
-        unique: true,
-        minlength: 4,
-    },
     phone: {
         type: String,
     },

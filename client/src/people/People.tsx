@@ -89,7 +89,7 @@ function People() {
         onBackArrowClick={handleBackArrowClick}
         onDeleteClick={handleDeleteUserClick}
         onArchiveClick={handleArchiveUserClick} />) :
-      (<NiHeader backArrow={true} logo={true} menu={true} title="NIGNITE" />);
+      (<NiHeader backArrow={true} logo={true} menu={true} title="NIGNITE" url="/dashboard" />);
   };
 
   return (

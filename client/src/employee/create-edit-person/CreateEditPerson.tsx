@@ -38,6 +38,7 @@ function CreateEditPerson() {
   const [cvName, setCvName] = useState("");
 
   const onAcceptClick = () => {
+
     const person: Person = {
       id: id === undefined ? '' : id,
       fullName: formik.values.fullName as string,
@@ -53,9 +54,11 @@ function CreateEditPerson() {
       cv: cv
     };
 
-    id === undefined ? dispatch(addNewPerson(person)) : dispatch(updatePerson(id, person, file, cvFile));
+    console.log("Usao sam u accept");
 
-    history.push(`/user-profile/${id}`);
+    id === undefined ? dispatch(addNewPerson(person, file, cvFile)) : dispatch(updatePerson(id, person, file, cvFile));
+
+    id === undefined ? history.push(`/people`) : history.push(`/user-profile/${id}`);
   };
 
   const formik = useFormik(createEditFormikConfig(onAcceptClick, (id === undefined ? undefined : user)));
@@ -85,7 +88,7 @@ function CreateEditPerson() {
   }
 
   const changeRole = (event: ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue('position', event.target.value);
+    formik.setFieldValue('role', event.target.value);
   }
 
   const onUploadFile = (event: any) => {

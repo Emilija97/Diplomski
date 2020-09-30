@@ -16,7 +16,7 @@ export function apiGetUsersByStatus(page: number, limit: number, status: UserSta
 
 export function apiGetUsersByName(fullName: string)
   : Observable<User[]> {
-  return getAll<User>(`${PEOPLE_URL}?fullName=${fullName}`);
+  return getAll<User>(`${PEOPLE_URL}/name/${fullName}`);
 }
 
 export function apiDeleteUsers(ids: string[]): Observable<Response[]> {
