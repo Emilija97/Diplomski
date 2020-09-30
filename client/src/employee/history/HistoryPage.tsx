@@ -6,7 +6,6 @@ import "../../shared/styles/ni-text-field.scss";
 import { RootState } from "../../store/store";
 import ActivityForm from "../activities/components/ActivityForm";
 import { Activity, ActivityName, clear, loadActivities, selectActivities, selectActivityById } from "../activities/store";
-import { changeDialogState } from "../store/actions";
 import "./history-page.scss";
 import ShowBonus from "./ShowBonus";
 import ShowHireAndSalary from "./ShowHireAndSalary";
@@ -21,7 +20,6 @@ function HistoryPage() {
 
   const person = useSelector((state: RootState) => state.person);
   const activities: Activity[] = useSelector((state: RootState) => selectActivities(state));
-  const activ = {} as Activity;
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
@@ -35,9 +33,9 @@ function HistoryPage() {
     }
   }, [dispatch]);
 
-  const handleClickOpen = () => {
-    dispatch(changeDialogState());
-  };
+  // const handleClickOpen = () => {
+  //   dispatch(changeDialogState());
+  // };
 
   const showDate = (date: any) => {
     const activityDate = new Date(date);

@@ -5,7 +5,7 @@ const responses = require('services/responses');
 const upload = require('services/multer');
 const router = Router();
 
-const responseUserExists = res => res.status(400).send({ message: 'User already exists.' });
+const responseUserExists = res => res.status(401).json({ error: 'User already exists.' });
 // User Model
 const { User } = require('models');
 

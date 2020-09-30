@@ -7,7 +7,9 @@ import { User, UserStatus } from "./user-state";
 export interface PeopleState extends NormalizedObjects<User> {
   page: number,
   limit: number,
-  selectedTab: UserStatus
+  selectedTab: UserStatus,
+  errorMessage: string,
+  success: boolean
 }
 
 const initialState: PeopleState = {
@@ -15,7 +17,9 @@ const initialState: PeopleState = {
   byId: {},
   page: 1,
   limit: 10,
-  selectedTab: 0
+  selectedTab: 0,
+  errorMessage: "",
+  success: false
 };
 
 function reducer(state = initialState, action: PeopleActions | PersonsActions): PeopleState {
@@ -96,9 +100,12 @@ function reducer(state = initialState, action: PeopleActions | PersonsActions): 
         ...state, selectedTab: action.selectedTab
       }
     }
-    case PersonsActionTypes.ADD_NEW_PERSON_SUCCESS: {
+    case PeopleActionTypes.ADD_NEW_PERSON_SUCCESS: {
+      console.log(action.person);
       return {
         ...state,
+        errorMessage: "",
+        success: true,
         allIds: [...state.allIds, action.person.id],
         byId: {
           ...state.byId,
@@ -112,6 +119,14 @@ function reducer(state = initialState, action: PeopleActions | PersonsActions): 
           }
         }
       }
+    }
+
+    case PersonsActionTypes.UPDATE_PERSON_SUCCESS: {
+      return { ...state, ...action.person, success: true }
+    }
+
+    case PeopleActionTypes.ADD_NEW_PERSON_FAILURE: {
+      return { ...state, errorMessage: action.errorMessage, success: false };
     }
 
     default: return state;

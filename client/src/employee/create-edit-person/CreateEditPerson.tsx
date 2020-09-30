@@ -1,16 +1,16 @@
 import TextField from "@material-ui/core/TextField";
 import { useFormik } from "formik";
-import React, { ChangeEvent, MutableRefObject, useRef, useState } from "react";
+import React, { ChangeEvent, MutableRefObject, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
-import { CameraImage, IllustrationImage, PdfImage } from "../../assets";
-import { UserStatus } from "../../people/store";
+import { PdfImage } from "../../assets";
+import { addNewPerson, UserStatus } from "../../people/store";
 import ButtonToggle from "../../shared/button-toggle/ButtonToggle";
 import FormAction from "../../shared/form-action/FormAction";
 import "../../shared/styles/ni-button.scss";
 import "../../shared/styles/ni-text-field.scss";
 import { RootState } from "../../store/store";
-import { addNewPerson, updatePerson } from "../store/actions";
+import { updatePerson } from "../store/actions";
 import { Person } from "../store/person-state";
 import { createEditFormikConfig } from "./create-edit-formik";
 import "./create-edit-person.scss";
@@ -20,6 +20,7 @@ function CreateEditPerson() {
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
   const user = useSelector((state: RootState) => state.person);
+  const { errorMessage, success } = useSelector((state: RootState) => state.people);
   const history = useHistory();
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -36,6 +37,11 @@ function CreateEditPerson() {
   const [mode, setMode] = useState(false);
   const [cvFile, setCvFile] = useState();
   const [cvName, setCvName] = useState("");
+
+  useEffect(() => {
+    if (success)
+      return chooseAction();
+  }, [success, errorMessage]);
 
   const onAcceptClick = () => {
 
@@ -54,12 +60,12 @@ function CreateEditPerson() {
       cv: cv
     };
 
-    console.log("Usao sam u accept");
-
     id === undefined ? dispatch(addNewPerson(person, file, cvFile)) : dispatch(updatePerson(id, person, file, cvFile));
-
-    id === undefined ? history.push(`/people`) : history.push(`/user-profile/${id}`);
   };
+
+  const chooseAction = () => {
+    id === undefined ? history.push('/people') : history.push(`/user-profile/${id}`);
+  }
 
   const formik = useFormik(createEditFormikConfig(onAcceptClick, (id === undefined ? undefined : user)));
 
@@ -121,13 +127,13 @@ function CreateEditPerson() {
 
         />
         <div className="create-edit-person__content">
+          {errorMessage !== "" ? <h3 className="text-danger">{errorMessage}</h3> : ""}
           <label className="create-edit-person__content-label">Status</label>
           <ButtonToggle
             buttonToggleMap={navigationMap}
             initState={selectedItem}
             onSelectClick={statusChange}
           />
-
           <div className="create-edit-person__content-form">
             <TextField  {...formik.getFieldProps('birthDate')}
               className={textFieldStyle(formik.touched.birthDate && formik.errors.birthDate ? true : false)}

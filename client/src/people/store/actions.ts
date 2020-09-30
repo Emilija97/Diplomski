@@ -1,4 +1,5 @@
 import { Action } from "redux";
+import { Person } from "../../employee/store/person-state";
 import { NormalizedObjects } from "../../store/normalized-objects";
 import { User, UserStatus } from "./user-state";
 
@@ -18,7 +19,10 @@ export enum PeopleActionTypes {
   INCREMENT_PAGE = "People__IncrementPage",
   RESET_PAGE = "People__ResetPage",
   CLEAR = "People__Clear",
-  SET_SELECTED_TAB = "People__SetSelectedTab"
+  SET_SELECTED_TAB = "People__SetSelectedTab",
+  ADD_NEW_PERSON = "Persons_AddNewPerson",
+  ADD_NEW_PERSON_SUCCESS = "Persons_AddNewPersonSuccess",
+  ADD_NEW_PERSON_FAILURE = "Persons_AddNewPersonFailure",
 }
 
 export function loadUsersInit(): Action {
@@ -152,10 +156,40 @@ export function setSelectedTab(selectedTab: UserStatus): PeopleActions {
   return { type: PeopleActionTypes.SET_SELECTED_TAB, selectedTab }
 }
 
+export interface AddNewPerson extends Action {
+  type: PeopleActionTypes.ADD_NEW_PERSON;
+  person: Person;
+  file: any;
+  cvFile: any
+}
+
+export function addNewPerson(person: Person, file: any, cvFile: any): PeopleActions {
+  return { type: PeopleActionTypes.ADD_NEW_PERSON, person, file, cvFile };
+}
+
+export interface AddNewPersonSuccess extends Action {
+  type: PeopleActionTypes.ADD_NEW_PERSON_SUCCESS;
+  person: Person
+}
+
+export function addNewPersonSuccess(person: Person): PeopleActions {
+  return { type: PeopleActionTypes.ADD_NEW_PERSON_SUCCESS, person };
+}
+
+export interface AddNewPersonFailure extends Action {
+  type: PeopleActionTypes.ADD_NEW_PERSON_FAILURE;
+  errorMessage: string
+}
+
+export function addNewPersonFailure(errorMessage: string): PeopleActions {
+  return { type: PeopleActionTypes.ADD_NEW_PERSON_FAILURE, errorMessage };
+}
+
 export type PeopleActions =
   LoadUsersSuccess | AddUsersSuccess |
   DeleteUsersInit | DeleteUsersSuccess |
   ArchiveUsersInit | ArchiveUsersSuccess |
   IncrementPage | ResetPage | Clear |
   SetSelectedTab | LoadUsersByNameInit |
-  LoadUsersByNameSuccess | AddUserInit | AddUserSuccess;
+  LoadUsersByNameSuccess | AddUserInit | AddUserSuccess
+  | AddNewPerson | AddNewPersonSuccess | AddNewPersonFailure;

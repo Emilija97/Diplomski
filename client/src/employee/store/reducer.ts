@@ -1,3 +1,4 @@
+
 import { ActivityActions, ActivityActionTypes } from '../activities/store/actions';
 import { PersonsActions, PersonsActionTypes } from './actions';
 import { Person } from './person-state';
@@ -24,9 +25,6 @@ const initialState: PersonState = {
 function reducer(state = initialState, action: PersonsActions | ActivityActions): PersonState {
   switch (action.type) {
     case PersonsActionTypes.GET_PERSON_SUCCESS: {
-      return { ...state, ...action.person }
-    }
-    case PersonsActionTypes.UPDATE_PERSON_SUCCESS: {
       return { ...state, ...action.person }
     }
     case ActivityActionTypes.ADD_ACTIVITY_SUCCESS: {

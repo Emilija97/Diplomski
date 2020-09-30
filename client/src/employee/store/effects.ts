@@ -2,16 +2,25 @@ import { Action } from "redux";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
+import { AddNewPerson, addNewPersonFailure, addNewPersonSuccess, PeopleActionTypes } from "../../people/store";
 import { apiAddPerson, apiGetPerson, apiUpdatePerson } from "../../services/data/person.service";
 import { NiEpic, RootState } from "../../store/store";
-import { AddNewPerson, addNewPersonSuccess, GetPerson, getPersonSuccess, PersonsActionTypes, UpdatePerson, updatePersonSuccess } from "./actions";
+import { GetPerson, getPersonSuccess, PersonsActionTypes, UpdatePerson, updatePersonSuccess } from "./actions";
 
 const addPersonEpic = (action$: Observable<AddNewPerson>, state: StateObservable<RootState>): Observable<Action> => {
   return action$.pipe(
-    ofType(PersonsActionTypes.ADD_NEW_PERSON),
-    switchMap(action => apiAddPerson(action.person, action.file, action.cvFile).pipe(
-      map(id => addNewPersonSuccess({ ...action.person, id: id }))
-    ))
+    ofType(PeopleActionTypes.ADD_NEW_PERSON),
+    switchMap(action => {
+      return apiAddPerson(action.person, action.file, action.cvFile).pipe(
+        // map(id => addNewPersonSuccess({ ...action.person, id: id }))
+        map(response => {
+          if (response === "User already exists.")
+            return addNewPersonFailure(response);
+          else
+            return addNewPersonSuccess({ ...action.person, id: response })
+        })
+      )
+    })
   )
 }
 

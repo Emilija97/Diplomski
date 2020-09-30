@@ -3,33 +3,11 @@ import { Person } from "./person-state";
 
 
 export enum PersonsActionTypes {
-  ADD_NEW_PERSON = "Persons_AddNewPerson",
-  ADD_NEW_PERSON_SUCCESS = "Persons_AddNewPersonSuccess",
   GET_PERSON = "Persons_GetPerson",
   GET_PERSON_SUCCESS = "Persons_GetPersonSuccess",
   UPDATE_PERSON = "Persons_UpdatePerson",
   UPDATE_PERSON_SUCCESS = "Persons_UpdatePersonSuccess",
   CHANGE_DIALOG_STATE = "Persons_ChangeDialogState"
-}
-
-export interface AddNewPerson extends Action {
-  type: PersonsActionTypes.ADD_NEW_PERSON;
-  person: Person;
-  file: any;
-  cvFile: any
-}
-
-export function addNewPerson(person: Person, file: any, cvFile: any): PersonsActions {
-  return { type: PersonsActionTypes.ADD_NEW_PERSON, person, file, cvFile };
-}
-
-export interface AddNewPersonSuccess extends Action {
-  type: PersonsActionTypes.ADD_NEW_PERSON_SUCCESS;
-  person: Person
-}
-
-export function addNewPersonSuccess(person: Person): PersonsActions {
-  return { type: PersonsActionTypes.ADD_NEW_PERSON_SUCCESS, person };
 }
 
 export interface GetPerson extends Action {
@@ -80,6 +58,5 @@ export function changeDialogState(): ChangeDialogState {
 }
 
 export type PersonsActions =
-  AddNewPerson | AddNewPersonSuccess
   | GetPerson | GetPersonSuccess
   | UpdatePerson | UpdatePersonSuccess | ChangeDialogState;

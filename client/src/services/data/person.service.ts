@@ -1,26 +1,10 @@
-import { from, Observable, of } from "rxjs";
-import { switchMap } from "rxjs/operators";
-import { UserType } from "../../auth/store";
+import { from, Observable } from "rxjs";
 import { Person } from "../../employee/store/person-state";
-import { User } from "../../people/store";
-import { PEOPLE_URL } from "./people.service";
-import { addOne, getOne, updateOne } from "./repository.service";
+import { getOne } from "./repository.service";
 
 export const PERSON_URL = "http://localhost:5000/users";
 
 export function apiAddPerson(person: Person, file: File, cvFile: File): Observable<string> {
-  // const user: User = {
-  //   id: "",
-  //   fullName: person.fullName,
-  //   imageSrc: person.imageSrc,
-  //   position: person.position,
-  //   status: person.status,
-  //   type: UserType.EMPLOYEE
-  // }
-  // console.log("Usao sam u add");
-  // return addOne<Person>(`${PERSON_URL}`, person).pipe(
-  //   switchMap(id => of(id))
-  // );
   const formdata = new FormData();
   formdata.append('image', file);
   formdata.append('cv', cvFile);
@@ -29,11 +13,21 @@ export function apiAddPerson(person: Person, file: File, cvFile: File): Observab
   return from(fetch(`${PERSON_URL}`, {
     method: "POST",
     body: formdata
-  }).then(response => response.json())
+  }).then(response => {
+    // if (response.ok)
+    return response.json();
+    // else
+    //   throw new Error("Something went wrong.");
+  })
     .then(res => {
       console.log(res);
-      return res.id;
-    }).catch(error => console.log(error)));
+      if (res.error === "User already exists.") {
+        console.log("usao sam u res message");
+        return res.error;
+      }
+      else
+        return res.id;
+    }));
 }
 
 export function apiGetPerson(id: string): Observable<Person> {
