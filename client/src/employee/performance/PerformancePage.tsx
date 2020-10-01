@@ -7,15 +7,15 @@ import "../../shared/styles/ni-button.scss";
 import { RootState } from "../../store/store";
 import GraphComponent from "./GraphComponent";
 import "./performance.scss";
-import { loadReportsInit } from "./store/actions";
-import { Report } from "./store/report-state";
-import { selectReports } from "./store/selectors";
+import { loadReportsInit } from "../../reports/store/actions";
+import { Report } from "../../reports/store/report-state";
+import { selectReports } from "../../reports/store/selectors";
 
 function PerformancePage() {
   const [year, setYear] = useState(new Date().getFullYear());
   const yearsMap = new Map<string, string>();
   yearsMap.set("currentYear", "Year");
-  yearsMap.set("previousYear", "Previous year");
+  yearsMap.set("previousYear", "Previous years");
   const [selectedYear, setSelectedYear] = useState("currentYear");
 
   const dispatch = useDispatch();

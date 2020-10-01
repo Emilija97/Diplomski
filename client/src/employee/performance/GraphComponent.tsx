@@ -3,9 +3,9 @@ import HighchartsReact from "highcharts-react-official";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { loadReportsInit } from "./store/actions";
-import { Report } from "./store/report-state";
-import { selectReports } from "./store/selectors";
+import { loadReportsInit } from "../../reports/store/actions";
+import { Report } from "../../reports/store/report-state";
+import { selectReports } from "../../reports/store/selectors";
 
 interface Props {
   year: number;

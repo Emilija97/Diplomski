@@ -129,6 +129,18 @@ function reducer(state = initialState, action: PeopleActions | PersonsActions): 
       return { ...state, errorMessage: action.errorMessage, success: false };
     }
 
+    case PeopleActionTypes.GET_HIRED_USERS_SUCCESS: {
+      state = initialState;
+      return {
+        ...state,
+        allIds: Array.from(new Set([...state.allIds, ...action.users.allIds])) as string[],
+        byId: {
+          ...state.byId,
+          ...action.users.byId
+        }
+      };
+    }
+
     default: return state;
   }
 }

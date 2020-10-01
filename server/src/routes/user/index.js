@@ -6,9 +6,11 @@ const upload = require('services/multer');
 const router = Router();
 
 const responseUserExists = res => res.status(401).json({ error: 'User already exists.' });
+const responseNoHiredUsers = res => res.status(401).json({ error: "No hired users." });
 // User Model
-const { User } = require('models');
+const { User, Activity, Report } = require('models');
 
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const createUserId = (user) => {
     return { ...user, id: user._id }
 }
@@ -142,7 +144,7 @@ router.delete("/:id", async (req, res, next) => {
 
 
         if (!user) {
-            return res.status(404).send({ message: 'Activity not found' });
+            return res.status(404).send({ message: 'User not found' });
         }
 
         await User.deleteOne({ _id: id }).lean().exec();
@@ -188,6 +190,35 @@ router.post("/", upload.fields([{ name: 'image', maxCount: 1 }, { name: 'cv', ma
         const result = createUserId(user);
         delete user._id;
         return res.status(200).json(result);
+    }
+    catch (e) {
+        logger.error(e);
+        return res.status(500).send({
+            message: responses(500),
+        });
+    }
+});
+
+router.get("/year/:year/month/:month/:hire", async (req, res, next) => {
+    try {
+        const { year, month, hire } = req.params;
+
+        const monthValue = months.indexOf(month);
+        const dateValue = new Date(year, monthValue);
+
+        const activities = await Activity.find({ name: hire }).lean().exec();
+        if (!activities) { return responseNoHiredUsers(res); }
+
+        const activityResult = activities.filter(activity => new Date(activity.date).getTime() <= dateValue.getTime());
+        const usersIds = activityResult.map(activity => activity.personId);
+
+        const users = await User.find({ _id: { $in: usersIds } }).lean().exec();
+        if (!users) {
+            return responseNoHiredUsers(res);
+        }
+        const result = users.map(user => createUserId(user));
+        result.forEach(user => delete user._id);
+        return res.status(200).send(result);
     }
     catch (e) {
         logger.error(e);

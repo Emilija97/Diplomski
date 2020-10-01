@@ -1,0 +1,53 @@
+@import "../shared/styles/theme.scss";
+
+.reports {
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        padding-bottom: 40px;
+        padding-top: 30px;
+        margin-left: 30px;
+        font-style: normal;
+        font-weight: bold;
+        font-size: $h5;
+        color: $title-color;
+    }
+
+    &__chose-year {
+        display: flex;
+        justify-content: space-evenly;
+        margin: 0px 30% 0px 30%;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        color: $ni-black;
+    }
+
+    &__months {
+
+        display: flex;
+        overflow-x: scroll;
+    }
+    &__months::-webkit-scrollbar {
+        display: none;
+    }
+
+    &__users {
+        display: flex;
+        flex-direction: column;
+      }
+    
+      &__no-users-message {
+        margin-top: 16px;
+      }
+    
+      &__user {
+        margin-top: 15px;
+    
+        img {
+          border-radius: 50%;
+          width: 45px;
+          height: 45px;
+        }
+      }
+}

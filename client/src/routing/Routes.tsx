@@ -22,6 +22,7 @@ import CreateLeaveRequest from '../leave-requests/components/CreateLeaveRequest'
 import LeaveRequestRescheduler from '../leave-requests/components/LeaveRequestRescheduler';
 import LeaveRequests from '../leave-requests/components/LeaveRequests';
 import People from '../people/People';
+import Reports from '../reports/Reports';
 import PrivateRoute from './PrivateRoute';
 
 function Routes() {
@@ -90,6 +91,7 @@ function Routes() {
         <PrivateRoute component={UserProfile} path="/user-profile/:id" />
         <Route exact path="/create-edit-person"><CreateEditPerson /></Route>
         <Route path="/create-edit-person/:id"><CreateEditPerson /></Route>
+        <Route path="/work-reports"><Reports /></Route>
       </Switch>
       {authRoutes()}
       {leaveRequestsRoutes()}

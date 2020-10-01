@@ -23,6 +23,8 @@ export enum PeopleActionTypes {
   ADD_NEW_PERSON = "Persons_AddNewPerson",
   ADD_NEW_PERSON_SUCCESS = "Persons_AddNewPersonSuccess",
   ADD_NEW_PERSON_FAILURE = "Persons_AddNewPersonFailure",
+  GET_HIRED_USERS = "People__GetHiredUsers",
+  GET_HIRED_USERS_SUCCESS = "People__GetHiredUsersSuccess",
 }
 
 export function loadUsersInit(): Action {
@@ -185,6 +187,26 @@ export function addNewPersonFailure(errorMessage: string): PeopleActions {
   return { type: PeopleActionTypes.ADD_NEW_PERSON_FAILURE, errorMessage };
 }
 
+export interface GetHiredUsers {
+  type: PeopleActionTypes.GET_HIRED_USERS,
+  year: number,
+  month: string,
+  hire: number
+}
+
+export function getHiredUsers(year: number, month: string, hire: number): PeopleActions {
+  return { type: PeopleActionTypes.GET_HIRED_USERS, year, month, hire }
+}
+
+export interface GetHiredUsersSuccess {
+  type: PeopleActionTypes.GET_HIRED_USERS_SUCCESS,
+  users: NormalizedObjects<User>;
+}
+
+export function getHiredUsersSuccess(users: NormalizedObjects<User>): PeopleActions {
+  return { type: PeopleActionTypes.GET_HIRED_USERS_SUCCESS, users }
+}
+
 export type PeopleActions =
   LoadUsersSuccess | AddUsersSuccess |
   DeleteUsersInit | DeleteUsersSuccess |
@@ -192,4 +214,5 @@ export type PeopleActions =
   IncrementPage | ResetPage | Clear |
   SetSelectedTab | LoadUsersByNameInit |
   LoadUsersByNameSuccess | AddUserInit | AddUserSuccess
-  | AddNewPerson | AddNewPersonSuccess | AddNewPersonFailure;
+  | AddNewPerson | AddNewPersonSuccess | AddNewPersonFailure
+  | GetHiredUsers | GetHiredUsersSuccess;

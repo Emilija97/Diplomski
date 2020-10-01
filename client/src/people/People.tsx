@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { AddEmployeeImage } from "../assets";
 import { UserType } from "../auth/store/auth-state";
+import { clearReports } from "../reports/store/actions";
 import { ListItem, NiHeader, NiIconButton, SearchField } from "../shared";
 import "../shared/styles/ni-tabs.scss";
 import { RootState } from "../store/store";

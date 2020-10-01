@@ -27,6 +27,11 @@ export function apiArchiveUsers(ids: string[]): Observable<Response[]> {
   return forkJoin(ids.map(id => apiArchiveUser(id)));
 }
 
+export function apiGetHiredUsers(year: number, month: string, hire: number)
+  : Observable<User[]> {
+  return getAll<User>(`${PEOPLE_URL}/year/${year}/month/${month}/${hire}`);
+}
+
 function apiArchiveUser(id: string): Observable<Response> {
   return getOne<User>(`${PEOPLE_URL}/${id}`).pipe(
     switchMap(value => {

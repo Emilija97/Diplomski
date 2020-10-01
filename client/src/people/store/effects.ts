@@ -2,11 +2,11 @@ import { Action } from "redux";
 import { ActionsObservable, ofType, StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
 import { map, mergeMap, switchMap } from "rxjs/operators";
-import { apiArchiveUsers, apiDeleteUsers, apiGetUsers, apiGetUsersByName, apiGetUsersByStatus } from "../../services/data/people.service";
+import { apiArchiveUsers, apiDeleteUsers, apiGetHiredUsers, apiGetUsers, apiGetUsersByName, apiGetUsersByStatus } from "../../services/data/people.service";
 import { apiGetUser } from "../../services/data/user-menu.service";
 import normalize from "../../store/normalizer";
 import { NiEpic, RootState } from "../../store/store";
-import { AddUserInit, addUsersSuccess, addUserSuccess, ArchiveUsersInit, archiveUsersSuccess, DeleteUsersInit, deleteUsersSuccess, LoadUsersByNameInit, loadUsersByNameSuccess, loadUsersSuccess, PeopleActionTypes } from './actions';
+import { AddUserInit, addUsersSuccess, addUserSuccess, ArchiveUsersInit, archiveUsersSuccess, DeleteUsersInit, deleteUsersSuccess, GetHiredUsers, getHiredUsersSuccess, LoadUsersByNameInit, loadUsersByNameSuccess, loadUsersSuccess, PeopleActionTypes } from './actions';
 
 
 const loadUsersEpic = (action$: Observable<Action>, state$: StateObservable<RootState>)
@@ -65,8 +65,18 @@ const archiveUsersEpic = (action$: ActionsObservable<ArchiveUsersInit>): Observa
   )
 }
 
+const getHiredUsersEpic = (action$: Observable<GetHiredUsers>): Observable<Action> => {
+  return action$.pipe(
+    ofType(PeopleActionTypes.GET_HIRED_USERS),
+    switchMap(action => apiGetHiredUsers(action.year, action.month, action.hire).pipe(
+      map(users => normalize(users)),
+      map(users => getHiredUsersSuccess(users))
+    ))
+  );
+}
+
 export const peopleEpics: NiEpic[] = [
   loadUsersEpic, loadUsersByNameEpic,
   deleteUsersEpic, archiveUsersEpic,
-  addUserEpic
+  addUserEpic, getHiredUsersEpic
 ];

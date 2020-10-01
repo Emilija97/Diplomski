@@ -1,0 +1,13 @@
+@import "../shared/styles/theme.scss";
+
+.add-report {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+
+    &__form-action {
+      padding-top: 20px;
+    }
+}

@@ -3,7 +3,7 @@ import { switchMap } from "rxjs/operators";
 import { LeaveRequest, LeaveRequestStatus } from "../../leave-requests/store";
 import { getAll, getOne, updateOne } from "./repository.service";
 
-export const REQUESTS_URL = "http://localhost:4000/requests";
+export const REQUESTS_URL = "http://localhost:5000/requests";
 
 export function apiLoadLeaveRequests(): Observable<LeaveRequest[]> {
   return getAll<LeaveRequest>(`${REQUESTS_URL}`);
