@@ -22,7 +22,9 @@ import CreateLeaveRequest from '../leave-requests/components/CreateLeaveRequest'
 import LeaveRequestRescheduler from '../leave-requests/components/LeaveRequestRescheduler';
 import LeaveRequests from '../leave-requests/components/LeaveRequests';
 import People from '../people/People';
-import Reports from '../reports/Reports';
+import Reports from '../reports/components/Reports';
+import PersonalInformation from '../user-menu/components/PersonalInformation';
+import UserAccess from '../user-menu/components/UserAccess';
 import PrivateRoute from './PrivateRoute';
 
 function Routes() {
@@ -82,6 +84,15 @@ function Routes() {
     )
   }
 
+  const userAccessRoutes = () => {
+    return (
+      <Switch>
+        <Route path="/user-access" ><UserAccess /></Route>
+        <Route path="/personal-information/:id" ><PersonalInformation /></Route>
+      </Switch>
+    )
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -96,6 +107,7 @@ function Routes() {
       {authRoutes()}
       {leaveRequestsRoutes()}
       {foodRoutes()}
+      {userAccessRoutes()}
     </BrowserRouter>
   )
 }

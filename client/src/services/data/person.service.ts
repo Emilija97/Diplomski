@@ -14,9 +14,9 @@ export function apiAddPerson(person: Person, file: File, cvFile: File): Observab
     method: "POST",
     body: formdata
   }).then(response => {
-    // if (response.ok)
+    //if(response.ok)
     return response.json();
-    // else
+    // else { console.log("nije ok") }
     //   throw new Error("Something went wrong.");
   })
     .then(res => {
@@ -35,8 +35,6 @@ export function apiGetPerson(id: string): Observable<Person> {
 }
 
 export function apiUpdatePerson(id: string, person: Person, file: File, cvFile: File): Observable<Response> {
-
-  console.log(cvFile);
   const formdata = new FormData();
   formdata.append('image', file);
   formdata.append('cv', cvFile);

@@ -1,0 +1,29 @@
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+  
+    &__back {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    &__logo {
+      flex: 2;
+      display: flex;
+    }
+  
+    &__delete {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      img {
+        margin-right: 20px;
+      }
+    }
+  }
+  

@@ -17,7 +17,7 @@ function People() {
   const dispatch = useDispatch();
   const [selectedUsersIds, setSelectedUsersIds] = useState<string[]>([]);
 
-  const { page, selectedTab, limit } = useSelector((state: RootState) => state.people);
+  const { page, selectedTab, limit, success } = useSelector((state: RootState) => state.people);
   const { loggedUserType } = useSelector((state: RootState) => state.auth);
 
   const users: User[] = useSelector(
@@ -26,7 +26,7 @@ function People() {
 
   useEffect(() => {
     dispatch(addUsersInit());
-  }, [dispatch, page]);
+  }, [dispatch, page, success]);
 
   useEffect(() => {
     return function cleanup() {
@@ -115,7 +115,7 @@ function People() {
         >
           <Tab value={0} label="All" />
           <Tab value={UserStatus.EMPLOYEE} label="Working" />
-          <Tab value={UserStatus.CANDIDATES} label="Hiring" />
+          <Tab value={UserStatus.CANDIDATES} label="Candidates" />
           <Tab value={UserStatus.CONTRACTORS} label="Contractors" />
           <Tab value={UserStatus.ARCHIVED} label="Archived" />
         </Tabs>

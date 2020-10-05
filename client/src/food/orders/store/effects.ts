@@ -22,8 +22,8 @@ const addOrderEpic = (action$: Observable<AddOrderInit>): Observable<Action> => 
       user: action.order.user,
       catering: action.order.catering
     }).pipe(
-      map(id => addOrderSuccess({
-        id: id,
+      map(order => addOrderSuccess({
+        id: order.id,
         date: new Date(action.order.date).toLocaleDateString(),
         meals: action.order.meals,
         user: action.order.user,

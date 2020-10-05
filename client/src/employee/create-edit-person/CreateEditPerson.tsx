@@ -11,7 +11,7 @@ import "../../shared/styles/ni-button.scss";
 import "../../shared/styles/ni-text-field.scss";
 import { RootState } from "../../store/store";
 import { updatePerson } from "../store/actions";
-import { Person } from "../store/person-state";
+import { navigationMap, Person } from "../store/person-state";
 import { createEditFormikConfig } from "./create-edit-formik";
 import "./create-edit-person.scss";
 import CreateEditPersonCover from "./CreateEditPersonCover";
@@ -24,11 +24,12 @@ function CreateEditPerson() {
   const history = useHistory();
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
-  const navigationMap = new Map<string, string>();
-  navigationMap.set("employee", "Employee");
-  navigationMap.set("candidate", "Candidate");
-  const [selectedItem, setSelectedItem] = useState(
-    id === undefined || user.status === UserStatus.EMPLOYEE ? "employee" : "candidate");
+  // const navigationMap = new Map<string, string>();
+  // navigationMap.set("employee", "Employee");
+  // navigationMap.set("candidate", "Candidate");
+  // navigationMap.set("contractor", "Contractor")
+  const [selectedItem, setSelectedItem] = useState(id === undefined ? UserStatus.EMPLOYEE : user.status);
+  // id === undefined || user.status === UserStatus.EMPLOYEE ? "employee" : "candidate");
 
   const [cover, setCover] = useState(id === undefined ? "illustration.png" : user.imageSrc);
   const [avatar, setAvatar] = useState(id === undefined ? "camera.png" : user.imageSrc);
@@ -39,9 +40,9 @@ function CreateEditPerson() {
   const [cvName, setCvName] = useState("");
 
   useEffect(() => {
-    if (success)
+    if (success || user.success)
       return chooseAction();
-  }, [success, errorMessage]);
+  }, [success, errorMessage, user.success]);
 
   const onAcceptClick = () => {
 
@@ -57,7 +58,8 @@ function CreateEditPerson() {
       email: formik.values.email as string,
       phone: formik.values.phone as string,
       salary: (id === undefined ? undefined : user.salary),
-      cv: cv
+      cv: cv,
+      type: user.type
     };
 
     id === undefined ? dispatch(addNewPerson(person, file, cvFile)) : dispatch(updatePerson(id, person, file, cvFile));
@@ -103,8 +105,8 @@ function CreateEditPerson() {
     setCvName(event.target.files[0].name);
   }
 
-  const statusChange = (item: string) => {
-    formik.setFieldValue('status', (item === "employee" ? UserStatus.EMPLOYEE : UserStatus.CANDIDATES));
+  const statusChange = (item: number) => {
+    formik.setFieldValue('status', (item));
     setSelectedItem(item);
   }
 

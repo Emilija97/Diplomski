@@ -16,14 +16,14 @@ export type DashboardItem = {
 
 
 function Dashboard() {
-  const loggedUserType: UserType = useSelector((state: RootState) => state.auth.loggedUserType);
+  const { loggedUserType, loggedUserId, loggedUserName } = useSelector((state: RootState) => state.auth);
 
   const items: DashboardItem[] = [
     {
       title: "People",
       imageSrc: PeopleImage,
       url: "/people",
-      privileges: [UserType.EMPLOYEE, UserType.ADMIN, UserType.HR]
+      privileges: [UserType.ADMIN, UserType.HR]
     },
     {
       title: "Requests",
@@ -32,10 +32,10 @@ function Dashboard() {
       privileges: [UserType.EMPLOYEE, UserType.HR, UserType.ADMIN]
     },
     {
-      title: "Work reports",
+      title: (loggedUserType === UserType.EMPLOYEE ? "Information" : "Work report"),
       imageSrc: WorkReportsImage,
-      url: "/work-reports",
-      privileges: [UserType.ADMIN, UserType.HR]
+      url: (loggedUserType === UserType.EMPLOYEE ? `/user-profile/${loggedUserId}` : "/work-reports"),
+      privileges: [UserType.EMPLOYEE, UserType.ADMIN, UserType.HR]
     },
     {
       title: "Food",
@@ -63,7 +63,7 @@ function Dashboard() {
       <NiHeader backArrow={false} logo={true} menu={true} title="NIGNITE" />
       <div className="dashboard__content">
         <div className="dashboard__title">
-          Hello Mia, what do you want to do today?
+          Hello {loggedUserName}, what do you want to do today?
         </div>
 
         <div className="dashboard__cards">

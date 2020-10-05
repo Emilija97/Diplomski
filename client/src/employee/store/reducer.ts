@@ -4,6 +4,7 @@ import { PersonsActions, PersonsActionTypes } from './actions';
 import { Person } from './person-state';
 
 export interface PersonState extends Person {
+  success: boolean,
   isDialogOpen: boolean
 }
 
@@ -19,22 +20,27 @@ const initialState: PersonState = {
   email: "",
   phone: "",
   salary: 0,
-  isDialogOpen: false
+  isDialogOpen: false,
+  type: 0,
+  success: false
 };
 
 function reducer(state = initialState, action: PersonsActions | ActivityActions): PersonState {
   switch (action.type) {
     case PersonsActionTypes.GET_PERSON_SUCCESS: {
-      return { ...state, ...action.person }
+      return { ...state, ...action.person, success: false }
     }
     case ActivityActionTypes.ADD_ACTIVITY_SUCCESS: {
       return { ...state, ...action.person }
     }
     case ActivityActionTypes.UPDATE_ACTIVITY_SUCCESS: {
-      return { ...state, ...action.person }
+      return { ...state, ...action.person, success: true }
     }
     case PersonsActionTypes.CHANGE_DIALOG_STATE: {
       return { ...state, isDialogOpen: !state.isDialogOpen }
+    }
+    case PersonsActionTypes.UPDATE_PERSON_SUCCESS: {
+      return { ...state, ...action.person, success: true }
     }
     default: return state;
   }

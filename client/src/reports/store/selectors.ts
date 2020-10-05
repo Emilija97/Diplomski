@@ -6,7 +6,7 @@ export const selectReports = (state: RootState): Report[] => {
   return state.reports.allIds.map(report => state.reports.byId[report]);
 }
 
-export const selectReport = (reports: Report[], personId: string): Report | undefined => {
-  return reports.find(report => report.personId === personId);
+export const selectReport = (reports: Report[], personId: string): Report => {
+  return reports.find(report => report.personId === personId) as Report;
 }
 

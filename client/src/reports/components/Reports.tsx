@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { ListItem, NiHeader } from "../shared";
-import LeftArrow from "../assets/images/left-arrow.png";
-import RightArrow from "../assets/images/right-arrow.png";
-import ButtonToggle from "../shared/button-toggle/ButtonToggle";
-import { monthsMap } from "./store/month-name";
-import "../shared/styles/ni-button.scss";
-import "./reports.scss";
-import { RootState } from "../store/store";
-import { addUsersInit, clear, getHiredUsers, incrementPage, selectUserByStatus, selectUsers, User } from "../people/store";
+import { NiHeader } from "../../shared";
+import LeftArrow from "../../assets/images/left-arrow.png";
+import RightArrow from "../../assets/images/right-arrow.png";
+import ButtonToggle from "../../shared/button-toggle/ButtonToggle";
+import { monthsMap } from "../store/month-name";
+import "../../shared/styles/ni-button.scss";
+import "../styles/reports.scss";
+import { RootState } from "../../store/store";
+import { getHiredUsers, incrementPage, selectUserByStatus, selectUsers, User } from "../../people/store";
 import UserCard from "./UserCard";
-import { ActivityName } from "../employee/activities/store";
-import { clearReports, getReports } from "./store/actions";
-import { Report } from "./store/report-state";
-import { selectReport, selectReports } from "./store/selectors";
+import { ActivityName } from "../../employee/activities/store";
+import { clearReports, deleteReports, getReports } from "../store/actions";
+import { Report } from "../store/report-state";
+import { selectReport, selectReports } from "../store/selectors";
+import ReportHeader from "./ReportHeader";
 
 function Reports() {
-    const history = useHistory();
     const dispatch = useDispatch();
     const [year, setYear] = useState(new Date().getFullYear());
     const [selectedMonth, setSelectedMonth] = useState("january");
+    const [selectedReportsIds, setSelectedReportsIds] = useState<string[]>([]);
+    const [isFormOpen, setIsFormOpen] = useState(false);
 
-    const { page, selectedTab, limit } = useSelector((state: RootState) => state.people);
+    const { page, limit } = useSelector((state: RootState) => state.people);
 
     const users: User[] = useSelector(
         (state: RootState) => selectUsers(state)
@@ -48,34 +50,46 @@ function Reports() {
 
     const selectedMonthChange = (monthValue: string) => {
         setSelectedMonth(monthValue);
+        setSelectedReportsIds([]);
     }
-
-    // const handleUserPress = (userId: string) => {
-
-    //     selectedUsersIds.includes(userId) ?
-    //         setSelectedUsersIds(selectedUsersIds.filter(id => id !== userId)) :
-    //         setSelectedUsersIds([...selectedUsersIds, userId]);
-    // };
 
     const handleSeeMoreClick = () => {
         dispatch(incrementPage());
     }
-    // const handleCardClick = (id: string) => {
-    //     setIsFormOpen(true);
-    //     return (
-    //         <ReportForm fullName={"Emilija"}
-    //             open={isFormOpen}
-    //             onClose={() => setIsFormOpen(false)} />
-    //     )
-    // }
 
-    // const closeForm = () => {
-    //     setIsFormOpen(false);
-    // }
+    const checkSelectedReports = (userId: string) => {
+        const report = selectReport(reports, userId);
+        if (selectedReportsIds.filter(id => id === report.id).length !== 0) return true;
+        else return false;
+    }
+
+    const handleCardPress = (userId: string) => {
+        const report = selectReport(reports, userId);
+        selectedReportsIds.includes(userId) ?
+            setSelectedReportsIds(selectedReportsIds.filter(id => id !== report.id)) :
+            setSelectedReportsIds([...selectedReportsIds, report.id]);
+    }
+    const handleBackArrowClick = () => {
+        setSelectedReportsIds([]);
+    }
+    const handleDeleteReportClick = () => {
+        console.log(selectedReportsIds);
+        dispatch(deleteReports(selectedReportsIds));
+        console.log("delete");
+        setSelectedReportsIds([]);
+    };
+
+    const renderHeader = () => {
+        return selectedReportsIds.length > 0 ?
+            (<ReportHeader
+                onBackArrowClick={handleBackArrowClick}
+                onDeleteClick={handleDeleteReportClick} />) :
+            (<NiHeader backArrow={true} logo={false} title="Reports" menu={true} />);
+    };
+
     return (
         <div className="reports">
-            <NiHeader backArrow={true} logo={false} title="Reports" menu={true} />
-
+            {renderHeader()}
             <div className="reports__chose-year">
                 <button
                     className="ni-button ni-button__text ni-button__text--transparent"
@@ -117,10 +131,15 @@ function Reports() {
                                 month={monthsMap.get(selectedMonth) as string}
                                 year={year}
                                 className="reports__user"
+                                selected={checkSelectedReports(user.id)}
                                 image={user.imageSrc}
                                 fullName={user.fullName}
                                 position={user.position}
                                 report={selectReport(reports, user.id)}
+                                isFormOpen={isFormOpen}
+                                onClick={() => setIsFormOpen(true)}
+                                onPress={() => handleCardPress(user.id)}
+                                closeForm={() => setIsFormOpen(false)}
                             />
                         );
                     })}

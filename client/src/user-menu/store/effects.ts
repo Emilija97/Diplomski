@@ -2,9 +2,9 @@ import { Action } from "redux";
 import { ofType, StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
-import { apiGetUser } from "../../services/data/user-menu.service";
+import { apiGetUser, apiUpdateUserType } from "../../services/data/user-menu.service";
 import { NiEpic, RootState } from "../../store/store";
-import { LoadUserInit, loadUserSuccess, UserMenuActionTypes } from "./actions";
+import { LoadUserInit, loadUserSuccess, UpdateUserType, updateUserTypeSuccess, UserMenuActionTypes } from "./actions";
 
 const getUserEpic = (action$: Observable<LoadUserInit>, state$: StateObservable<RootState>)
   : Observable<Action> => {
@@ -16,6 +16,16 @@ const getUserEpic = (action$: Observable<LoadUserInit>, state$: StateObservable<
   );
 }
 
+const updateUserTypeEpic = (action$: Observable<UpdateUserType>, state$: StateObservable<RootState>)
+  : Observable<Action> => {
+  return action$.pipe(
+    ofType(UserMenuActionTypes.UPDATE_USER_TYPE),
+    switchMap(action => apiUpdateUserType(action.user).pipe(
+      map(() => updateUserTypeSuccess(action.user))
+    ))
+  );
+}
+
 export const userMenuEpics: NiEpic[] = [
-  getUserEpic
+  getUserEpic, updateUserTypeEpic
 ]

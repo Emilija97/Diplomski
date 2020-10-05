@@ -1,0 +1,30 @@
+@import "../../shared/styles/theme.scss";
+
+.personal-info {
+    display: flex;
+    flex-direction: column;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    padding-left: $body-margin;
+    padding-right: $body-margin;
+
+    font-size: $body-text-size;
+
+    &--title {
+      font-weight: 700;
+      padding-bottom: 10px;
+    }
+
+    &--value {
+      color: $readable-color;
+    }
+
+    &--underline {
+      border: 1px solid #f7f7f7;
+      width: 100%;
+    }
+  }
+}

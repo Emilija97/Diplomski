@@ -27,11 +27,11 @@ export function apiDeleteMeals(ids: string[]): Observable<Response[]> {
 
 export function apiAddMeal(meal: Meal): Observable<string> {
   return addOne<Meal>(`${MEALS_URL}`, meal).pipe(
-    switchMap(mealId => getOne<Catering>(`${CATERINGS_URL}/${meal.catering}`).pipe(
+    switchMap(mealRes => getOne<Catering>(`${CATERINGS_URL}/${meal.catering}`).pipe(
       switchMap(catering => {
-        catering.meals = [...catering.meals, mealId];
+        catering.meals = [...catering.meals, mealRes.id];
         return updateOne<Catering>(`${CATERINGS_URL}/${catering.id}`, catering).pipe(
-          switchMap(() => of(mealId))
+          switchMap(() => of(mealRes.id))
         )
       })
     ))

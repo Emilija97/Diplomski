@@ -1,50 +1,30 @@
 import { Action } from "redux";
 import { ofType } from "redux-observable";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, switchMap } from "rxjs/operators";
+import { User } from "../../people/store";
+import { apiLogin, apiSignUp } from "../../services/data/auth.service";
 import { removeItemFromLocalStorage, setItemToLocalStorage, USER_DATA_KEY } from "../../services/local-storage.service";
 import { NiEpic } from "../../store/store";
 import { logoutSuccess, UserMenuActionTypes } from "../../user-menu/store";
-import { AuthActionTypes, loginFailure, LoginInit, loginSuccess } from "./actions";
+import { AuthActionTypes, loginFailure, LoginInit, loginSuccess, signUpFailure, SignUpInit, signUpSuccess } from "./actions";
 import { UserType } from "./auth-state";
-
-export interface UserCredentials {
-  email: string,
-  password: string,
-  id: string,
-  type: UserType,
-  fullName: string
-}
-
-const users: UserCredentials[] = [
-  {
-    id: '569ed8269353e9f4c51617a3',
-    email: "bojan@nignite.com",
-    password: "password",
-    type: 2,
-    fullName: "Bojan Pavlovic"
-  },
-  {
-    id: "11117",
-    email: "milena@nignite.com",
-    password: "password",
-    type: 4,
-    fullName: "Milena Savic"
-  }
-]
 
 const loginEpic = (action$: Observable<LoginInit>): Observable<Action> => {
   return action$.pipe(
     ofType<LoginInit>(AuthActionTypes.LOGIN_INIT),
-    map(action => {
-      const result = users.find(user => user.password === action.password && user.email === action.email);
-      if (result != null) {
-        setItemToLocalStorage<UserCredentials>(USER_DATA_KEY, result);
-        return loginSuccess(result?.id, result?.email, result?.type);
-      }
-      else {
-        return loginFailure();
-      }
+    switchMap(action => {
+      return apiLogin(action.email, action.password).pipe(
+        map(response => {
+          if (response.error === "Invalid email/password.")
+            return loginFailure();
+          else {
+            if (response.user.type !== UserType.GUEST)
+              setItemToLocalStorage<User>(USER_DATA_KEY, response.user);
+            return loginSuccess(response.user.id, response.user.fullName, response.user.type);
+          }
+        })
+      )
     })
   )
 }
@@ -59,7 +39,26 @@ const logoutEpic = (action$: Observable<Action>): Observable<Action> => {
   )
 }
 
+const signUpEpic = (action$: Observable<SignUpInit>): Observable<Action> => {
+  return action$.pipe(
+    ofType<SignUpInit>(AuthActionTypes.SIGN_UP_INIT),
+    switchMap(action => {
+      console.log(action);
+      return apiSignUp(action.fullName, action.email, action.password, action.userType).pipe(
+        map(response => {
+          console.log(response);
+          if (response === "User already exists.")
+            return signUpFailure();
+          else {
+            return signUpSuccess(response);
+          }
+        })
+      )
+    })
+  )
+}
+
 
 export const authEpics: NiEpic[] = [
-  loginEpic, logoutEpic
+  loginEpic, logoutEpic, signUpEpic
 ]

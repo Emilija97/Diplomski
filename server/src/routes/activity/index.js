@@ -45,9 +45,15 @@ router.post("/", async (req, res) => {
             ...attributes
         });
 
-        await activity.save();
+        const savedActivity = await activity.save((activity._id));
 
-        res.status(200).json(activity);
+        if (!savedActivity) {
+            return res.status(400).send({ message: responses(400) });
+        }
+
+        const result = createMappingObject(savedActivity);
+        delete savedActivity._id;
+        return res.status(200).json(result);
     }
     catch (e) {
         logger.error(e);

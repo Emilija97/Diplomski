@@ -1,4 +1,4 @@
-@import "../shared/styles/theme.scss";
+@import "../../shared/styles/theme.scss";
 
 .user-menu {
   display: flex;
@@ -14,16 +14,42 @@
     display: flex;
     padding-bottom: 15px;
     border-bottom: 1px solid $ni-light-gray;
+    align-items: center;
+  }
+
+  &__image-container {
+    flex: 1;
+    position: relative;
+    justify-content: center;
+    align-items: center;
 
     img {
-      margin-right: 15px;
+      position: absolute;
+      top: 50%;
+      right: 50%;
+      transform: translate(50%, -50%);
     }
   }
 
+  &__image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
+
   &__info {
+    flex:4;
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+
+  &__data {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 15px 0px 15px 10px;
   }
 
   &__name {

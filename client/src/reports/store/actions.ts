@@ -8,12 +8,14 @@ export enum ReportsActionTypes {
   LOAD_REPORTS_INIT = "Reports__LoadReportsInit",
   LOAD_REPORTS_SUCCESS = "Reports__LoadReportsSuccess",
   GET_REPORTS = "Reports__GetReports",
-  GET_REPORTS_SUCCESS = "Report__GetReportsSuccess",
-  CLEAR_REPORTS = "Report__ClearReports",
-  ADD_REPORT = "Report__AddReport",
-  ADD_REPORT_SUCCESS = "Report__AddReportSuccess",
-  UPDATE_REPORT = "Report_UpdateReport",
-  UPDATE_REPORT_SUCCESS = "Report_UpdateReportSuccess",
+  GET_REPORTS_SUCCESS = "Reports__GetReportsSuccess",
+  CLEAR_REPORTS = "Reports__ClearReports",
+  ADD_REPORT = "Reports__AddReport",
+  ADD_REPORT_SUCCESS = "Reports__AddReportSuccess",
+  UPDATE_REPORT = "Reports__UpdateReport",
+  UPDATE_REPORT_SUCCESS = "Reports__UpdateReportSuccess",
+  DELETE_REPORTS = "Reports__DeleteReports",
+  DELETE_REPORTS_SUCCESS = "Reports__DeleteReportsSuccess",
 }
 
 export interface LoadReportsInit extends Action {
@@ -98,7 +100,26 @@ export function updateReportSuccess(report: Report): ReportsActions {
   return { type: ReportsActionTypes.UPDATE_REPORT_SUCCESS, report };
 }
 
+export interface DeleteReports extends Action {
+  type: ReportsActionTypes.DELETE_REPORTS;
+  ids: string[];
+}
+
+export function deleteReports(ids: string[]): ReportsActions {
+  return { type: ReportsActionTypes.DELETE_REPORTS, ids };
+}
+
+export interface DeleteReportsSuccess extends Action {
+  type: ReportsActionTypes.DELETE_REPORTS_SUCCESS;
+  ids: string[];
+}
+
+export function deleteReportsSuccess(ids: string[]): ReportsActions {
+  return { type: ReportsActionTypes.DELETE_REPORTS_SUCCESS, ids };
+}
+
 export type ReportsActions =
   LoadReportsInit | LoadReportsSuccess
   | GetReports | GetReportsSuccess | ClearReports
-  | AddReport | AddReportSuccess | UpdateReport | UpdateReportSuccess;
+  | AddReport | AddReportSuccess | UpdateReport | UpdateReportSuccess
+  | DeleteReports | DeleteReportsSuccess;

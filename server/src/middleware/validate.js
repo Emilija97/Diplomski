@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 
 module.exports = schema => (request, response, next) => {
   const { error } = Joi.validate(request.body, schema, { abortEarly: false });

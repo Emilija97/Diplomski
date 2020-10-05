@@ -1,7 +1,7 @@
-import { Observable, of } from "rxjs";
+import { forkJoin, Observable, of } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { Report } from "../../reports/store/report-state";
-import { addOne, getAll, getOne, updateOne } from "./repository.service";
+import { addOne, deleteMany, getAll, getOne, updateOne } from "./repository.service";
 
 export const REPORTS_URL = "http://localhost:5000/reports";
 
@@ -19,10 +19,14 @@ export function apiGetReports(year: number, month: string): Observable<Report[]>
 
 export function apiAddReport(report: Report): Observable<string> {
   return addOne<Report>(`${REPORTS_URL}`, report).pipe(
-    switchMap(id => of(id))
+    switchMap(report => of(report.id))
   );
 }
 
 export function apiUpdateReport(report: Report): Observable<Response> {
   return updateOne<Report>(`${REPORTS_URL}/${report.id}`, report);
+}
+
+export function apiDeleteReports(ids: string[]): Observable<Response[]> {
+  return forkJoin(deleteMany(`${REPORTS_URL}`, ids));
 }

@@ -1,11 +1,11 @@
 import TextField from "@material-ui/core/TextField";
 import React, { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import FormAction from "../shared/form-action/FormAction";
-import "../shared/styles/ni-text-field.scss";
-import "./add-report.scss";
-import { addReport, updateReport } from "./store/actions";
-import { Report } from "./store/report-state";
+import FormAction from "../../shared/form-action/FormAction";
+import "../../shared/styles/ni-text-field.scss";
+import "../styles/add-report.scss";
+import { addReport, updateReport } from "../store/actions";
+import { Report } from "../store/report-state";
 
 interface Props {
     onClose: () => void;

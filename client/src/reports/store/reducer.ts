@@ -52,6 +52,15 @@ function reducer(state = initialState, action: ReportsActions): ReportsState {
         }
       }
     }
+    case ReportsActionTypes.DELETE_REPORTS_SUCCESS: {
+      let users = { ...state.byId };
+      action.ids.filter(id => delete users[id]);
+      return {
+        ...state,
+        byId: users,
+        allIds: state.allIds.filter(element => !action.ids.includes(element))
+      };
+    }
     default: { return state; }
   }
 }

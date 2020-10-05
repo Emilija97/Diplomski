@@ -1,14 +1,15 @@
-import { getItemFromLocalStorage, USER_DATA_KEY } from "../../services/local-storage.service";
+import { User } from "../../people/store";
+import { getItemFromLocalStorage, removeItemFromLocalStorage, USER_DATA_KEY } from "../../services/local-storage.service";
 import { UserMenuActions, UserMenuActionTypes } from "../../user-menu/store";
 import { AuthActions, AuthActionTypes } from "./actions";
 import { AuthState, UserType } from "./auth-state";
-import { UserCredentials } from "./effects";
 
 const initialState: AuthState = {
   loggedUserId: "",
   loggedUserType: UserType.GUEST,
   error: false,
-  loggedUserName: ""
+  loggedUserName: "",
+  message: ""
 }
 
 function reducer(state = initialState, action: AuthActions | UserMenuActions): AuthState {
@@ -19,11 +20,12 @@ function reducer(state = initialState, action: AuthActions | UserMenuActions): A
         loggedUserId: action.id,
         loggedUserType: action.userType,
         loggedUserName: action.fullName,
-        error: false
+        error: false,
+        message: action.userType === UserType.GUEST ? "You need to wait for user access confirmation." : ""
       }
     }
     case AuthActionTypes.LOGIN_FAILURE: {
-      return { ...state, error: true }
+      return { ...state, error: true, message: "" }
     }
     case UserMenuActionTypes.LOGOUT_SUCCESS: {
       return {
@@ -34,8 +36,19 @@ function reducer(state = initialState, action: AuthActions | UserMenuActions): A
         error: false
       }
     }
+    case AuthActionTypes.SIGN_UP_SUCCESS: {
+      console.log(action.message)
+      return {
+        ...state,
+        message: action.message,
+        error: false
+      }
+    }
+    case AuthActionTypes.SIGN_UP_FAILURE: {
+      return { ...state, error: true }
+    }
     default: {
-      const userCredentials = getItemFromLocalStorage<UserCredentials>(USER_DATA_KEY);
+      const userCredentials = getItemFromLocalStorage<User>(USER_DATA_KEY);
       if (userCredentials != null) {
         return {
           ...state,

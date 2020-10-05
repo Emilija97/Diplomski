@@ -10,7 +10,7 @@ import { addOne, getAll, getOne, updateOne } from "./repository.service";
 
 export const ORDERS_URL = "http://localhost:4000/orders";
 
-export function apiAddOrder(order: Order): Observable<string> {
+export function apiAddOrder(order: Order): Observable<Order> {
   return addOne<Order>(`${ORDERS_URL}`, order);
 }
 

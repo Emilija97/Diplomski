@@ -16,7 +16,7 @@ export const registrationFormikConfig = (onSubmit: () => void): FormikConfig<Aut
         .email(WRONG_FORMAT_MESSAGE)
         .required(REQUIRED_MESSAGE),
       password: Yup.string()
-        .min(6, SHORT_PASSWORD_MESSAGE)
+        .min(4, SHORT_PASSWORD_MESSAGE)
         .required(REQUIRED_MESSAGE)
     }),
     initialErrors: {

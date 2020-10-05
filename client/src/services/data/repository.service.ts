@@ -14,11 +14,9 @@ function fetchApi<T>(method: string, url: string, data?: T): Observable<Response
   }));
 }
 
-export function addOne<T extends Entity>(url: string, data: T): Observable<string> {
-  if (data.id === "") data.id = uuid();
-
+export function addOne<T extends Entity>(url: string, data: T): Observable<T> {
   return fetchApi('POST', url, data).pipe(
-    switchMap(() => of(data.id))
+    switchMap(response => from(response.json() as Promise<T>))
   );
 }
 

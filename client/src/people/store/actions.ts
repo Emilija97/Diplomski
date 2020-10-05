@@ -20,9 +20,9 @@ export enum PeopleActionTypes {
   RESET_PAGE = "People__ResetPage",
   CLEAR = "People__Clear",
   SET_SELECTED_TAB = "People__SetSelectedTab",
-  ADD_NEW_PERSON = "Persons_AddNewPerson",
-  ADD_NEW_PERSON_SUCCESS = "Persons_AddNewPersonSuccess",
-  ADD_NEW_PERSON_FAILURE = "Persons_AddNewPersonFailure",
+  ADD_NEW_PERSON = "Persons__AddNewPerson",
+  ADD_NEW_PERSON_SUCCESS = "Persons__AddNewPersonSuccess",
+  ADD_NEW_PERSON_FAILURE = "Persons__AddNewPersonFailure",
   GET_HIRED_USERS = "People__GetHiredUsers",
   GET_HIRED_USERS_SUCCESS = "People__GetHiredUsersSuccess",
 }

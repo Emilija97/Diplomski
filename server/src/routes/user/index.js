@@ -4,10 +4,11 @@ const logger = require('services/logger');
 const responses = require('services/responses');
 const upload = require('services/multer');
 const router = Router();
+const { hashPassword } = require('services/auth');
 
 const responseUserExists = res => res.status(401).json({ error: 'User already exists.' });
 const responseNoHiredUsers = res => res.status(401).json({ error: "No hired users." });
-// User Model
+
 const { User, Activity, Report } = require('models');
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -179,7 +180,8 @@ router.post("/", upload.fields([{ name: 'image', maxCount: 1 }, { name: 'cv', ma
         }
 
         const user = new User({
-            ...data
+            ...data,
+            password: hashPassword("password"),
         });
 
         await user.save();

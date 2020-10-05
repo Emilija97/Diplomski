@@ -1,6 +1,7 @@
 import { UserType } from "../../auth/store";
 import { PersonsActions, PersonsActionTypes } from "../../employee/store/actions";
 import { NormalizedObjects } from "../../store/normalized-objects";
+import { UserMenuActions, UserMenuActionTypes } from "../../user-menu/store";
 import { PeopleActions, PeopleActionTypes } from "./actions";
 import { User, UserStatus } from "./user-state";
 
@@ -22,11 +23,12 @@ const initialState: PeopleState = {
   success: false
 };
 
-function reducer(state = initialState, action: PeopleActions | PersonsActions): PeopleState {
+function reducer(state = initialState, action: PeopleActions | PersonsActions | UserMenuActions): PeopleState {
   switch (action.type) {
     case PeopleActionTypes.ADD_USERS_SUCCESS: {
       return {
         ...state,
+        success: false,
         allIds: Array.from(new Set([...state.allIds, ...action.users.allIds])) as string[],
         byId: {
           ...state.byId,
@@ -62,7 +64,7 @@ function reducer(state = initialState, action: PeopleActions | PersonsActions): 
     }
     case PeopleActionTypes.DELETE_USERS_SUCCESS: {
       let users = { ...state.byId };
-      action.ids.forEach(id => delete users[id]);
+      action.ids.filter(id => delete users[id]);
       return {
         ...state,
         byId: users,
@@ -121,8 +123,14 @@ function reducer(state = initialState, action: PeopleActions | PersonsActions): 
       }
     }
 
-    case PersonsActionTypes.UPDATE_PERSON_SUCCESS: {
-      return { ...state, ...action.person, success: true }
+    case UserMenuActionTypes.UPDATE_USER_TYPE_SUCCESS: {
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.user.id]: action.user
+        }
+      }
     }
 
     case PeopleActionTypes.ADD_NEW_PERSON_FAILURE: {

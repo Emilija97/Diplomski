@@ -3,6 +3,7 @@ import Tabs from "@material-ui/core/Tabs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { UserType } from "../../auth/store";
 import "../../shared/styles/ni-button.scss";
 import { RootState } from "../../store/store";
 import BasicInfo from "../basic-info/BasicInfo";
@@ -21,6 +22,7 @@ enum EmployeeView {
 function UserProfile() {
   const [selectedTab, setSelectedTab] = useState(1);
   const person = useSelector((state: RootState) => state.person);
+  const { loggedUserType } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
 
@@ -40,15 +42,9 @@ function UserProfile() {
     else return <HistoryPage />;
   };
 
-  return (
-    <div className="user-profile">
-      <UserCover
-        fullName={person.fullName}
-        position={person.position}
-        coverSrc={person.imageSrc}
-        avatarSrc={person.imageSrc}
-      />
-      <div className="user-profile__tabs">
+  const previewTabs = () => {
+    if (loggedUserType === UserType.EMPLOYEE)
+      return (
         <Tabs
           value={selectedTab}
           onChange={onTabChange}
@@ -57,8 +53,33 @@ function UserProfile() {
         >
           <Tab label="Basic Info" />
           <Tab label="Performance" />
-          <Tab label="History" />
         </Tabs>
+      );
+    else {
+      return (
+        <Tabs
+          value={selectedTab}
+          onChange={onTabChange}
+          className="ni-tabs people__tabs"
+          variant="fullWidth"
+        >
+          <Tab label="Basic Info" />
+          <Tab label="Performance" />
+          <Tab label="History" /></Tabs>);
+    }
+  }
+
+  return (
+    <div className="user-profile">
+      <UserCover
+        fullName={person.fullName}
+        position={person.position}
+        coverSrc={person.imageSrc}
+        avatarSrc={person.imageSrc}
+        userType={loggedUserType}
+      />
+      <div className="user-profile__tabs">
+        {previewTabs()}
         {renderSelectedTab()}
       </div>
     </div>

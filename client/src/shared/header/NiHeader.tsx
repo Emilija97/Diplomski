@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { NiIconButton } from '..';
 import { BackArrowImage, LogoImage, MenuImage } from '../../assets';
-import UserMenu from '../../user-menu/UserMenu';
+import UserMenu from '../../user-menu/components/UserMenu';
 import "./ni-header.scss";
 
 interface INiHeader {

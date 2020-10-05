@@ -16,7 +16,7 @@ import "./login.scss";
 function Login() {
 	const dispatch = useDispatch();
 
-	const { loggedUserType, error } = useSelector((state: RootState) => state.auth);
+	const { loggedUserType, error, message } = useSelector((state: RootState) => state.auth);
 
 	const handleSubmit = () => {
 		dispatch(loginInit(formik.values.email as string, formik.values.password as string));
@@ -40,7 +40,7 @@ function Login() {
 
 	return (
 		<div className="login">
-			<NiHeader backArrow={true} logo={true} menu={false} title="NIGNITE"></NiHeader>
+			<NiHeader backArrow={true} logo={true} menu={false} title="NIGNITE" url="/"></NiHeader>
 			<form onSubmit={formik.handleSubmit} className="login__form">
 				<div className="login__title">Log in</div>
 				<TextField
@@ -55,6 +55,8 @@ function Login() {
 					helperText={formik.errors.password} label="Password" name="password"
 					error={formik.touched.password && formik.errors.password ? true : false}>
 				</TextField>
+				{error ? <h3>User with this email doesn't exist, try sign up.</h3> : ""}
+				<h3>{message}</h3>
 				<div className="login__button">
 					<NiIconButton srcIcon={NextArrowImage}
 						className="ni-button__circle--large ni-button__circle--primary" />

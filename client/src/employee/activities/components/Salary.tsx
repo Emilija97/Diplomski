@@ -43,16 +43,7 @@ function Salary(props: Props) {
     }
 
     const person: Person = {
-      id: props.personState.id,
-      fullName: props.personState.fullName,
-      position: props.personState.position,
-      status: props.personState.status,
-      imageSrc: props.personState.imageSrc,
-      birthDate: props.personState.birthDate,
-      homeAddress: props.personState.homeAddress,
-      enrolmentDate: props.personState.enrolmentDate,
-      email: props.personState.email,
-      phone: props.personState.phone,
+      ...props.personState,
       salary: (salary as unknown as number)
     }
 

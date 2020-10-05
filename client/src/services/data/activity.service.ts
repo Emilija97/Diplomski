@@ -10,7 +10,7 @@ export const ACTIVITY_URL = "http://localhost:5000/activities";
 export function apiAddActivity(activity: Activity, person?: Person): Observable<string> {
   if (person == null) {
     return addOne<Activity>(`${ACTIVITY_URL}`, activity).pipe(
-      switchMap(id => of(id))
+      switchMap(activity => of(activity.id))
     );
   }
   else {
@@ -18,7 +18,7 @@ export function apiAddActivity(activity: Activity, person?: Person): Observable<
       updateOne<Person>(`${PERSON_URL}/${person?.id}`, person),
       addOne<Activity>(`${ACTIVITY_URL}`, activity)
     ).pipe(
-      switchMap(([response, activityId]) => of(activityId))
+      switchMap(([response, activity]) => of(activity.id))
     );
   }
 }

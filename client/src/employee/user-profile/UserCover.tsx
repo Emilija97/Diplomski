@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { GoBackImage } from "../../assets";
+import { UserType } from "../../auth/store";
 import "./user-cover.scss";
 
 interface IUserInfo {
@@ -8,6 +9,7 @@ interface IUserInfo {
   position: string;
   coverSrc: string;
   avatarSrc: string;
+  userType: number;
 }
 
 function UserCover(props: IUserInfo) {
@@ -15,7 +17,10 @@ function UserCover(props: IUserInfo) {
   const history = useHistory();
 
   const onBackClick = () => {
-    history.push('/people');
+    if (props.userType === UserType.EMPLOYEE)
+      history.push("/dashboard");
+    else
+      history.push('/people');
   };
 
   return (

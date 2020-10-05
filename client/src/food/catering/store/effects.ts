@@ -29,7 +29,7 @@ const addCateringEpic = (action$: Observable<AddCateringInit>): Observable<Actio
   return action$.pipe(
     ofType(CateringActionsType.ADD_CATERING_INIT),
     switchMap(action => apiAddCatering(action.catering).pipe(
-      map(cateringId => loadCateringSuccess({ ...action.catering, id: cateringId }))
+      map(cateringRes => loadCateringSuccess({ ...action.catering, id: cateringRes.id }))
     ))
   );
 }

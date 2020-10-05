@@ -1,23 +1,34 @@
 import { TextField } from '@material-ui/core';
 import { useFormik } from 'formik';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import { NextArrowImage } from '../../assets';
 import { NiHeader, NiIconButton } from '../../shared';
 import "../../shared/styles/ni-button.scss";
 import "../../shared/styles/ni-text-field.scss";
 import { RootState } from '../../store/store';
-import { UserType } from '../store';
+import { signUpInit, UserType } from '../store';
 import "./register.scss";
 import { registrationFormikConfig } from './registration-formik';
 
 function Register() {
-  const { loggedUserType } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+  const { loggedUserType, error, message } = useSelector((state: RootState) => state.auth);
+  const [validationError, setValidationError] = useState("");
 
-  const handleSubmit = () => { }
+  const handleSubmit = () => {
+    dispatch(signUpInit(formik.values.fullName as string, formik.values.email as string, formik.values.password as string, UserType.GUEST as number));
+  }
 
   const formik = useFormik(registrationFormikConfig(handleSubmit));
+
+  useEffect(() => {
+    if (error) {
+      formik.setErrors({ email: "Wrong email", password: "Wrong password" });
+      setValidationError("User with this email address already exists.");
+    }
+  }, [formik, error, message]);
 
   const textFieldStyle = (error: boolean) => {
     return "ni-text-field " + (error ? "ni-text-field--error" : "");
@@ -52,6 +63,7 @@ function Register() {
           error={formik.touched.password && formik.errors.password ? true : false}>
         </TextField>
 
+        {error ? <h3 >{validationError}</h3> : <h3 >{message}</h3>}
         <div className="register__button">
           <NiIconButton srcIcon={NextArrowImage}
             className="ni-button__circle--large ni-button__circle--primary" />

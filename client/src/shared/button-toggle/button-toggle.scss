@@ -22,4 +22,14 @@
     font-weight: 700;
     letter-spacing: $letter-spacing;
   }
+
+  &__access_btns {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__access_btn {
+    margin-top: 10px;
+    width: 250px;
+  }
 }

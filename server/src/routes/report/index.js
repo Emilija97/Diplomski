@@ -58,9 +58,15 @@ router.post("/", async (req, res) => {
             ...attributes
         });
 
-        await report.save();
+        const savedReport = await report.save((report._id));
 
-        res.status(200).json(report);
+        if (!savedReport) {
+            return res.status(400).send({ message: responses(400) });
+        }
+
+        const result = createMappingObject(savedReport);
+        delete savedReport._id;
+        return res.status(200).json(result);
     }
     catch (e) {
         logger.error(e);
@@ -87,6 +93,30 @@ router.put("/:id", async (req, res, next) => {
         }
 
         return res.status(200).send({ data: updatedReport });
+    }
+    catch (e) {
+        logger.error(e);
+        return res.status(500).send({
+            message: responses(500),
+        });
+    }
+});
+
+router.delete("/:id", async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const _id = ObjectId(id);
+        const report = await Report.findOne({ _id }).lean().exec();
+
+
+        if (!report) {
+            return res.status(404).send({ message: 'Report not found' });
+        }
+
+        await Report.deleteOne({ _id: id }).lean().exec();
+
+        return res.status(200).json(report);
     }
     catch (e) {
         logger.error(e);

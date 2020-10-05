@@ -1,11 +1,11 @@
 import { Action } from "redux";
-import { ofType, StateObservable } from "redux-observable";
+import { ActionsObservable, ofType, StateObservable } from "redux-observable";
 import { Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
-import { apiAddReport, apiGetReports, apiLoadReports, apiUpdateReport } from "../../services/data/reports.service";
+import { apiAddReport, apiDeleteReports, apiGetReports, apiLoadReports, apiUpdateReport } from "../../services/data/reports.service";
 import normalize from "../../store/normalizer";
 import { NiEpic, RootState } from "../../store/store";
-import { AddReport, addReportSuccess, GetReports, getReportsSuccess, LoadReportsInit, loadReportsSuccess, ReportsActionTypes, UpdateReport, updateReportSuccess } from "./actions";
+import { AddReport, addReportSuccess, DeleteReports, deleteReportsSuccess, GetReports, getReportsSuccess, LoadReportsInit, loadReportsSuccess, ReportsActionTypes, UpdateReport, updateReportSuccess } from "./actions";
 
 const loadReportsEpic = (action$: Observable<LoadReportsInit>, state$: StateObservable<RootState>)
   : Observable<Action> => {
@@ -16,16 +16,6 @@ const loadReportsEpic = (action$: Observable<LoadReportsInit>, state$: StateObse
     ))
   );
 }
-
-// const getReportEpic = (action$: Observable<GetReport>, state$: StateObservable<RootState>)
-//   : Observable<Action> => {
-//   return action$.pipe(
-//     ofType(ReportsActionTypes.GET_REPORT),
-//     switchMap(action => apiGetReport(action.personId, action.year, action.month).pipe(
-//       map(report => getReportSuccess(report))
-//     ))
-//   );
-// }
 
 const getReportsEpic = (action$: Observable<GetReports>, state$: StateObservable<RootState>)
   : Observable<Action> => {
@@ -56,6 +46,15 @@ const updateReportEpic = (action$: Observable<UpdateReport>, state$: StateObserv
   );
 }
 
+const deleteReportsEpic = (action$: ActionsObservable<DeleteReports>): Observable<Action> => {
+  return action$.pipe(
+    ofType(ReportsActionTypes.DELETE_REPORTS),
+    switchMap(action => apiDeleteReports(action.ids).pipe(
+      map(() => deleteReportsSuccess(action.ids))
+    ))
+  )
+}
+
 export const reportsEpics: NiEpic[] = [
-  loadReportsEpic, getReportsEpic, addReportEpic, updateReportEpic
+  loadReportsEpic, getReportsEpic, addReportEpic, updateReportEpic, deleteReportsEpic
 ]
