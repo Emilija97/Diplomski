@@ -2,7 +2,7 @@ import TextField from "@material-ui/core/TextField";
 import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { NextArrowImage } from "../../assets";
 import { NiHeader, NiIconButton } from "../../shared";
 import "../../shared/styles/ni-button.scss";
@@ -15,6 +15,7 @@ import "./login.scss";
 
 function Login() {
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const { loggedUserType, error, message } = useSelector((state: RootState) => state.auth);
 
@@ -38,6 +39,10 @@ function Login() {
 		return (<Redirect to="/dashboard" />);
 	}
 
+	const onChangePasswordClick = () => {
+		history.push('/recover-account');
+	}
+
 	return (
 		<div className="login">
 			<NiHeader backArrow={true} logo={true} menu={false} title="NIGNITE" url="/"></NiHeader>
@@ -57,7 +62,10 @@ function Login() {
 				</TextField>
 				{error ? <h3>User with this email doesn't exist, try sign up.</h3> : ""}
 				<h3>{message}</h3>
-				<div className="login__button">
+				<div className="login__buttons">
+					<button type="button" onClick={() => onChangePasswordClick()}
+						className="ni-button ni-button--small ni-button__contained ni-button__contained--primary">Change password
+          			</button>
 					<NiIconButton srcIcon={NextArrowImage}
 						className="ni-button__circle--large ni-button__circle--primary" />
 				</div>

@@ -1,7 +1,9 @@
 export interface AuthFormData {
   fullName?: string,
   email?: string,
-  password?: string
+  password?: string,
+  oldPassword?: string,
+  newPassword?: string
 }
 
 export const REQUIRED_MESSAGE = "This field is required";

@@ -4,6 +4,7 @@ import React, { ChangeEvent, MutableRefObject, useEffect, useRef, useState } fro
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { PdfImage } from "../../assets";
+import { UserType } from "../../auth/store";
 import { addNewPerson, UserStatus } from "../../people/store";
 import ButtonToggle from "../../shared/button-toggle/ButtonToggle";
 import FormAction from "../../shared/form-action/FormAction";
@@ -59,7 +60,7 @@ function CreateEditPerson() {
       phone: formik.values.phone as string,
       salary: (id === undefined ? undefined : user.salary),
       cv: cv,
-      type: user.type
+      type: id === undefined ? UserType.GUEST : user.type
     };
 
     id === undefined ? dispatch(addNewPerson(person, file, cvFile)) : dispatch(updatePerson(id, person, file, cvFile));

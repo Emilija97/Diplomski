@@ -1,5 +1,7 @@
 import { from, Observable } from "rxjs";
 import { LoginData } from "../../auth/store";
+import { Person } from "../../employee/store/person-state";
+import { updateOne } from "./repository.service";
 
 
 export const AUTH_URL = "http://localhost:5000/users/auth";
@@ -46,6 +48,22 @@ export const apiSignUp = (fullName: string, email: string, password: string, typ
       "email": email,
       "password": password,
       "type": type
+    })
+  }).then(response => { return response.json(); })
+    .then(res => { console.log(res); return res.message }));
+}
+
+export const apiChangePassword = (email: string, oldPassword: string, newPassword: string): Observable<string> => {
+  return from(fetch(`${AUTH_URL}/change-password`, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    body: JSON.stringify({
+      "email": email,
+      "oldPassword": oldPassword,
+      "newPassword": newPassword,
     })
   }).then(response => { return response.json(); })
     .then(res => { console.log(res); return res.message }));

@@ -5,14 +5,22 @@ import { AuthFormData, REQUIRED_MESSAGE } from "../form-data";
 export const recoverFormikConfig = (onSubmit: () => void): FormikConfig<AuthFormData> => {
   return {
     initialValues: {
-      password: ''
+      email: '',
+      oldPassword: '',
+      newPassword: ''
     },
     validationSchema: Yup.object<AuthFormData>({
-      password: Yup.string()
+      email: Yup.string()
+        .required(REQUIRED_MESSAGE),
+      oldPassword: Yup.string()
+        .required(REQUIRED_MESSAGE),
+      newPassword: Yup.string()
         .required(REQUIRED_MESSAGE)
     }),
     initialErrors: {
-      password: REQUIRED_MESSAGE
+      email: REQUIRED_MESSAGE,
+      oldPassword: REQUIRED_MESSAGE,
+      newPassword: REQUIRED_MESSAGE
     },
     onSubmit: values => onSubmit(),
   };

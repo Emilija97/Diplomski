@@ -3,11 +3,11 @@ import { ofType } from "redux-observable";
 import { Observable } from "rxjs";
 import { map, switchMap } from "rxjs/operators";
 import { User } from "../../people/store";
-import { apiLogin, apiSignUp } from "../../services/data/auth.service";
+import { apiChangePassword, apiLogin, apiSignUp } from "../../services/data/auth.service";
 import { removeItemFromLocalStorage, setItemToLocalStorage, USER_DATA_KEY } from "../../services/local-storage.service";
 import { NiEpic } from "../../store/store";
 import { logoutSuccess, UserMenuActionTypes } from "../../user-menu/store";
-import { AuthActionTypes, loginFailure, LoginInit, loginSuccess, signUpFailure, SignUpInit, signUpSuccess } from "./actions";
+import { AuthActionTypes, ChangePassword, changePasswordFailure, changePasswordSuccess, loginFailure, LoginInit, loginSuccess, signUpFailure, SignUpInit, signUpSuccess } from "./actions";
 import { UserType } from "./auth-state";
 
 const loginEpic = (action$: Observable<LoginInit>): Observable<Action> => {
@@ -58,7 +58,27 @@ const signUpEpic = (action$: Observable<SignUpInit>): Observable<Action> => {
   )
 }
 
+const changePasswordEpic = (action$: Observable<ChangePassword>): Observable<Action> => {
+  return action$.pipe(
+    ofType<ChangePassword>(AuthActionTypes.CHANGE_PASSWORD),
+    switchMap(action => {
+      console.log(action);
+      return apiChangePassword(action.email, action.oldPassword, action.newPassword).pipe(
+        map(response => {
+          console.log(response);
+          if (response === 'Password successfully changed')
+            return changePasswordSuccess(response);
+
+          else {
+            return changePasswordFailure(response);
+          }
+        })
+      )
+    })
+  )
+}
+
 
 export const authEpics: NiEpic[] = [
-  loginEpic, logoutEpic, signUpEpic
+  loginEpic, logoutEpic, signUpEpic, changePasswordEpic
 ]

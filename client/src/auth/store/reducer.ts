@@ -47,6 +47,17 @@ function reducer(state = initialState, action: AuthActions | UserMenuActions): A
     case AuthActionTypes.SIGN_UP_FAILURE: {
       return { ...state, error: true }
     }
+    case AuthActionTypes.CHANGE_PASSWORD_SUCCESS: {
+      console.log(action.message)
+      return {
+        ...state,
+        message: action.message,
+        error: false
+      }
+    }
+    case AuthActionTypes.CHANGE_PASSWORD_FAILURE: {
+      return { ...state, error: true, message: action.message }
+    }
     default: {
       const userCredentials = getItemFromLocalStorage<User>(USER_DATA_KEY);
       if (userCredentials != null) {
@@ -55,6 +66,7 @@ function reducer(state = initialState, action: AuthActions | UserMenuActions): A
           loggedUserId: userCredentials.id,
           loggedUserType: userCredentials.type,
           loggedUserName: userCredentials.fullName,
+          message: ""
         }
       }
       else return state;

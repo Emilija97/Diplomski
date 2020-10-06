@@ -6,6 +6,7 @@ const logger = require('services/logger');
 const responses = require('services/responses');
 const loginRequest = require('requests/auth/login');
 const registerUserRequest = require('requests/auth/registerUser');
+const changePasswordRequest = require('requests/auth/changePassword');
 const { encrypt, comparePasswords, hashPassword } = require('services/auth');
 const validate = require('middleware/validate');
 
@@ -16,8 +17,10 @@ const createUserId = (user) => {
 const { User } = require('models');
 
 const responseWrongPass = res => res.status(400).send({ message: 'Invalid email/password.' });
+const responseWrongPassword = res => res.status(400).send({ message: 'Wrong password.' });
 const responseUserExists = res => res.status(400).send({ message: 'User already exists.' });
 const responseUserCreated = res => res.status(200).send({ message: 'User successfully created' });
+const responsePasswordChanged = res => res.status(200).send({ message: 'Password successfully changed' });
 
 router.post('/login-user', validate(loginRequest), async (req, res) => {
     try {
@@ -67,6 +70,34 @@ router.post('/register-user', validate(registerUserRequest), async (req, res) =>
         await user.save();
 
         return responseUserCreated(res);
+    } catch (e) {
+        logger.error(e);
+        return res.status(500).send({
+            message: responses(500),
+        });
+    }
+});
+
+router.put('/change-password', validate(changePasswordRequest), async (req, res) => {
+    try {
+
+        const { email, oldPassword, newPassword } = req.body;
+
+        const userExists = await User.findOne({ email }).lean().exec();
+
+        if (!(await comparePasswords(oldPassword, userExists.password))) {
+            return responseWrongPassword(res);
+        }
+
+        const id = userExists._id;
+        const updatedUser = await User.findByIdAndUpdate(id, {
+            $set: {
+                ...userExists,
+                password: hashPassword(newPassword)
+            }
+        }, { new: true, useFindAndModify: false });
+
+        return responsePasswordChanged(res);
     } catch (e) {
         logger.error(e);
         return res.status(500).send({

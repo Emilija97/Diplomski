@@ -7,7 +7,10 @@ export enum AuthActionTypes {
   LOGIN_FAILURE = "Auth__LoginFailure",
   SIGN_UP_INIT = "Auth__SignUpInit",
   SIGN_UP_SUCCESS = "Auth__SignUpSuccess",
-  SIGN_UP_FAILURE = "Auth__SignUpFailure"
+  SIGN_UP_FAILURE = "Auth__SignUpFailure",
+  CHANGE_PASSWORD = "Auth__ChangePassword",
+  CHANGE_PASSWORD_SUCCESS = "Auth__ChangePasswordSuccess",
+  CHANGE_PASSWORD_FAILURE = "Auth__ChangePasswordFailure"
 }
 
 export interface LoginInit extends Action {
@@ -68,6 +71,36 @@ export function signUpFailure(): AuthActions {
   return { type: AuthActionTypes.SIGN_UP_FAILURE }
 }
 
+export interface ChangePassword extends Action {
+  type: AuthActionTypes.CHANGE_PASSWORD,
+  email: string,
+  oldPassword: string,
+  newPassword: string
+}
+
+export function changePassword(email: string, oldPassword: string, newPassword: string): AuthActions {
+  return { type: AuthActionTypes.CHANGE_PASSWORD, email, oldPassword, newPassword }
+}
+
+export interface ChangePasswordSuccess extends Action {
+  type: AuthActionTypes.CHANGE_PASSWORD_SUCCESS,
+  message: string
+}
+
+export function changePasswordSuccess(message: string): AuthActions {
+  return { type: AuthActionTypes.CHANGE_PASSWORD_SUCCESS, message }
+}
+
+export interface ChangePasswordFailure extends Action {
+  type: AuthActionTypes.CHANGE_PASSWORD_FAILURE,
+  message: string
+}
+
+export function changePasswordFailure(message: string): AuthActions {
+  return { type: AuthActionTypes.CHANGE_PASSWORD_FAILURE, message }
+}
+
 export type AuthActions =
   LoginInit | LoginSuccess | LoginFailure
-  | SignUpInit | SignUpSuccess | SignUpFailure;
+  | SignUpInit | SignUpSuccess | SignUpFailure
+  | ChangePassword | ChangePasswordSuccess | ChangePasswordFailure;
