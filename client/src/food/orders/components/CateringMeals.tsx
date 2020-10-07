@@ -13,7 +13,7 @@ import { MealType } from '../../meals/store/meal-types';
 import { addOrderInit, changeOrderInit, loadOrdersInit } from '../store/actions';
 import { dayOfWeekMap } from '../store/order-state';
 import { selectOrderMealsIds } from '../store/selectors';
-import '../styles//catering-meals.scss';
+import '../styles/catering-meals.scss';
 import CourseMeals from './CourseMeals';
 
 function CateringMeals() {

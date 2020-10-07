@@ -2,6 +2,8 @@ import React, { createRef, useEffect, useState } from 'react';
 import "../styles/user-card.scss";
 import { MarkedImage } from '../../assets';
 import ReportForm from './ReportForm';
+import { selectReport } from '../store/selectors';
+import { Report } from '../store/report-state';
 
 export interface UserCardProps {
     image: string,
@@ -12,16 +14,14 @@ export interface UserCardProps {
     position: string,
     className?: string,
     selected?: boolean,
-    report: any;
+    report: Report;
     onPress?: HammerListener;
     onClick?: HammerListener;
-    isFormOpen: boolean;
-    closeForm: () => void;
 }
 
 function UserCard(props: UserCardProps) {
     const cardRef = createRef<HTMLDivElement>();
-    // const [isFormOpen, setIsFormOpen] = useState(false);
+    const [isFormOpen, setIsFormOpen] = useState(false);
 
     useEffect(() => {
         const hammer = new Hammer(cardRef.current as HTMLDivElement);
@@ -46,9 +46,9 @@ function UserCard(props: UserCardProps) {
             </div>
             <ReportForm fullName={props.fullName} report={props.report}
                 year={props.year} month={props.month} personId={props.personId}
-                open={props.isFormOpen}
-                onClose={props.closeForm} />
-            <div className="user-card__info">  {/*onClick={() => setIsFormOpen(true)} */}
+                open={isFormOpen}
+                onClose={() => setIsFormOpen(false)} />
+            <div className="user-card__info" onClick={() => setIsFormOpen(true)}>
                 <div className="user-card__data">
                     <div className="user-card__name">{props.fullName}</div>
                     <div className="user-card__position">{props.position}</div>

@@ -33,7 +33,6 @@ function ChangeUserAccess(props: Props) {
         const user: Person = {
             ...person, type: selectedType
         };
-        console.log(user);
 
         dispatch(updateUserType(user));
         props.onClose();
@@ -45,7 +44,6 @@ function ChangeUserAccess(props: Props) {
 
     return (
         <div className="change-access">
-            {console.log(selectedType)}
             <div className="change-access__access">
                 <ButtonToggle
                     buttonToggleMap={accessMap}

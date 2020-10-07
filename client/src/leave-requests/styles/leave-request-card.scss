@@ -14,8 +14,29 @@
     border-bottom: 1px solid #E3E3E3;
   }
 
+  &__image-container {
+    flex: 1;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      position: absolute;
+      top: 50%;
+      right: 50%;
+      transform: translate(50%, -50%);
+    }
+  }
+
+  &__image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
+
   &__user-info {
     display: flex;
+    flex:4;
     flex-direction: column;
     margin-left: 15px;
   }
@@ -101,5 +122,9 @@
 
   &--rejected {
     color: $primary;
+  }
+
+  &--selected {
+    background-color: #E6E6E6;
   }
 }

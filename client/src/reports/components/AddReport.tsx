@@ -18,8 +18,8 @@ interface Props {
 function AddReport(props: Props) {
 
     const dispatch = useDispatch();
-    const [norm, setNorm] = useState(props.report !== undefined ? props.report.norm as string : "");
-    const [hours, setHours] = useState(props.report !== undefined ? props.report.hours as string : "");
+    const [norm, setNorm] = useState(props.report === undefined ? "" : props.report.norm as string);
+    const [hours, setHours] = useState(props.report === undefined ? "" : props.report.hours as string);
 
     const onChangeNorm = (event: ChangeEvent<HTMLInputElement>) => {
         setNorm(event.target.value);
@@ -47,10 +47,10 @@ function AddReport(props: Props) {
     return (
         <div className="add-report">
             <TextField className="ni-text-field" label="Norm"
-                type="number" value={norm} onChange={onChangeNorm}
+                type="number" value={norm || ""} onChange={onChangeNorm}
             />
             <TextField className="ni-text-field" label="Worked hours"
-                type="number" value={hours} onChange={onChangeHours}
+                type="number" value={hours || ""} onChange={onChangeHours}
             />
             <div className="add-report__form-action">
                 <FormAction

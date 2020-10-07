@@ -15,6 +15,5 @@ module.exports = schema => (request, response, next) => {
       message,
     });
   }
-
   return next();
 };

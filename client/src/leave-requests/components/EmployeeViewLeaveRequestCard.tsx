@@ -1,8 +1,31 @@
-import React from 'react';
+import React, { createRef, useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { WhitePlusImage } from '../../assets';
 import { LeaveRequest, LeaveRequestStatus, LeaveRequestType } from '../store';
 import "../styles/leave-request-card.scss";
 
-function EmployeeViewLeaveRequestCard(props: LeaveRequest) {
+interface Props extends LeaveRequest {
+  onPress?: HammerListener;
+  onClick?: HammerListener;
+  selected?: boolean,
+}
+
+function EmployeeViewLeaveRequestCard(props: Props) {
+  const cardRef = createRef<HTMLDivElement>();
+
+  useEffect(() => {
+    const hammer = new Hammer(cardRef.current as HTMLDivElement);
+    hammer.set({ domEvents: true });
+    if (props.onPress) hammer.on("press", props.onPress);
+    if (props.onClick) hammer.on("tap", (event) => {
+      event.srcEvent.stopImmediatePropagation();
+      props.onClick && props.onClick(event);
+    });
+    return () => {
+      hammer.off("press");
+      hammer.off("tap");
+    }
+  }, [cardRef, props.onPress, props.onClick]);
 
   const renderRequestTitle = () => {
     if (props.type === LeaveRequestType.SICK_LEAVE)
@@ -28,7 +51,8 @@ function EmployeeViewLeaveRequestCard(props: LeaveRequest) {
   }
 
   return (
-    <div className="request-card">
+    <div ref={cardRef}
+      className={"request-card" + (props.selected ? " request-card--selected" : "")}>
       <div className="request-card__content">
         {renderRequestTitle()}
         {renderDate()}

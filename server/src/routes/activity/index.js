@@ -4,7 +4,7 @@ const logger = require('services/logger');
 const responses = require('services/responses');
 
 const router = Router();
-// Activity Model
+
 const { Activity } = require('models');
 ObjectId = require("mongodb").ObjectID;
 
@@ -12,9 +12,6 @@ const createMappingObject = (object) => {
     return { ...object, id: object._id }
 }
 
-// @route   GET activities
-// @desc    Get All Activities
-// @access  Public
 router.get("/", async (req, res, next) => {
     try {
         const query = req.query;
@@ -34,9 +31,6 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-// @route   POST activities
-// @desc    Post New Activity
-// @access  Public
 router.post("/", async (req, res) => {
     try {
         const { ...attributes } = req.body;
@@ -63,9 +57,6 @@ router.post("/", async (req, res) => {
     }
 });
 
-// @route   DELETE activities/:id
-// @desc    Delete An Activity using ID
-// @access  Public
 router.delete("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -90,9 +81,6 @@ router.delete("/:id", async (req, res, next) => {
     }
 });
 
-// @route   PUT activities/:id
-// @desc    Update An Activity using ID
-// @access  Public
 router.put("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;

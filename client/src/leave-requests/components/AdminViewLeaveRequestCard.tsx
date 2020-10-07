@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { KebabMenuImage } from '../../assets';
 import "../../shared/styles/ni-button.scss";
-import { changeRequestStatusInit } from '../store/action';
+import { changeRequestStatusInit } from '../store/actions';
 import { LeaveRequest, LeaveRequestStatus, LeaveRequestType } from '../store/request-state';
 import "../styles/leave-request-card.scss";
 
@@ -12,7 +12,9 @@ function AdminViewLeaveRequestCard(props: LeaveRequest) {
   const renderCardHeader = () => {
     return (
       <div className="request-card__header">
-        <img alt="" src={props.employeeImageSrc} />
+        <div className="request-card__image-container">
+          <img className="request-card__image" alt="" src={`http://localhost:5000/uploads/${props.employeeImageSrc}`} />
+        </div>
         <div className="request-card__user-info">
           <div className="request-card__user-name">{props.employeeFullName}</div>
           <div className="request-card__user-position">{props.employeePosition}</div>

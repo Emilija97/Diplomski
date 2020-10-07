@@ -20,8 +20,6 @@ function RecoverAccount() {
 
   const handleSubmit = () => {
     dispatch(changePassword(formik.values.email as string, formik.values.oldPassword as string, formik.values.newPassword as string));
-
-    // history.push("/login");
   }
 
   const formik = useFormik<AuthFormData>(recoverFormikConfig(handleSubmit));

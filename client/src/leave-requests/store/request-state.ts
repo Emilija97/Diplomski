@@ -4,7 +4,7 @@ export interface LeaveRequest {
   employeeFullName: string,
   employeePosition: string,
   employeeId: string,
-  durationInDays: string,
+  durationInDays: number,
   startDate: string,
   endDate: string,
   message: string
@@ -22,3 +22,8 @@ export enum LeaveRequestType {
   TIME_OFF = 1,
   SICK_LEAVE = 2
 }
+
+export const navigationMap: Map<number, string> = new Map([
+  [LeaveRequestType.TIME_OFF, "Time off"],
+  [LeaveRequestType.SICK_LEAVE, "Sick leave"],
+])

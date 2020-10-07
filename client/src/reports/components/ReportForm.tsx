@@ -3,6 +3,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import 'date-fns';
 import React from "react";
+import { Report } from "../store/report-state";
 import AddReport from "./AddReport";
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
     personId: string;
     open: boolean;
     onClose: () => void;
-    report: any;
+    report: Report;
 }
 
 function ReportForm(props: Props) {

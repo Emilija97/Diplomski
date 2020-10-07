@@ -26,7 +26,6 @@ function ChoseActivity(props: Props) {
   const [selected, setSelected] = useState(props.activity.id === undefined ? "Contact" : activityNameMap.get(props.activity.name));
 
   const closeForm = () => {
-    // dispatch(changeDialogState());
     props.onClose();
   }
 

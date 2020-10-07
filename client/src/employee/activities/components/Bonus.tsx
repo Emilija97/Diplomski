@@ -58,7 +58,6 @@ function Bonus(props: Props) {
         className="ni-text-field"
         label="Add bonus"
         InputProps={{ inputProps: { min: 0 } }}
-        // value={props.id === undefined ? 0 : props.bonus}
         type="number"
         onChange={onChangeBonus}
       />

@@ -12,7 +12,6 @@ const addPersonEpic = (action$: Observable<AddNewPerson>, state: StateObservable
     ofType(PeopleActionTypes.ADD_NEW_PERSON),
     switchMap(action => {
       return apiAddPerson(action.person, action.file, action.cvFile).pipe(
-        // map(id => addNewPersonSuccess({ ...action.person, id: id }))
         map(response => {
           if (response === "User already exists.")
             return addNewPersonFailure(response);

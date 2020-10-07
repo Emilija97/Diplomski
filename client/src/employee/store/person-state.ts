@@ -6,7 +6,7 @@ export interface Person {
   position: string;
   status: UserStatus;
   imageSrc: string;
-  birthDate: string; //za sad, da se vidi koji format se koristi
+  birthDate: string;
   homeAddress: string;
   enrolmentDate: string;
   email: string;

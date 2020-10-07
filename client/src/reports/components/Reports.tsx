@@ -22,7 +22,6 @@ function Reports() {
     const [year, setYear] = useState(new Date().getFullYear());
     const [selectedMonth, setSelectedMonth] = useState("january");
     const [selectedReportsIds, setSelectedReportsIds] = useState<string[]>([]);
-    const [isFormOpen, setIsFormOpen] = useState(false);
 
     const { page, limit } = useSelector((state: RootState) => state.people);
 
@@ -40,7 +39,7 @@ function Reports() {
         return function cleanup() {
             dispatch(clearReports());
         }
-    }, [dispatch]);
+    }, [dispatch, selectedMonth]);
 
     const nextYear = () => {
         if (year < new Date().getFullYear()) {
@@ -63,19 +62,11 @@ function Reports() {
         else return false;
     }
 
-    const handleCardPress = (userId: string) => {
-        const report = selectReport(reports, userId);
-        selectedReportsIds.includes(userId) ?
-            setSelectedReportsIds(selectedReportsIds.filter(id => id !== report.id)) :
-            setSelectedReportsIds([...selectedReportsIds, report.id]);
-    }
     const handleBackArrowClick = () => {
         setSelectedReportsIds([]);
     }
     const handleDeleteReportClick = () => {
-        console.log(selectedReportsIds);
         dispatch(deleteReports(selectedReportsIds));
-        console.log("delete");
         setSelectedReportsIds([]);
     };
 
@@ -136,10 +127,6 @@ function Reports() {
                                 fullName={user.fullName}
                                 position={user.position}
                                 report={selectReport(reports, user.id)}
-                                isFormOpen={isFormOpen}
-                                onClick={() => setIsFormOpen(true)}
-                                onPress={() => handleCardPress(user.id)}
-                                closeForm={() => setIsFormOpen(false)}
                             />
                         );
                     })}

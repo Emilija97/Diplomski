@@ -33,9 +33,6 @@ function HistoryPage() {
     }
   }, [dispatch]);
 
-  // const handleClickOpen = () => {
-  //   dispatch(changeDialogState());
-  // };
 
   const showDate = (date: any) => {
     const activityDate = new Date(date);

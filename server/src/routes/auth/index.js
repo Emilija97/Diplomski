@@ -21,6 +21,7 @@ const responseWrongPassword = res => res.status(400).send({ message: 'Wrong pass
 const responseUserExists = res => res.status(400).send({ message: 'User already exists.' });
 const responseUserCreated = res => res.status(200).send({ message: 'User successfully created' });
 const responsePasswordChanged = res => res.status(200).send({ message: 'Password successfully changed' });
+const responseUserNotExists = res => res.status(200).send({ message: 'User does not exist.' });
 
 router.post('/login-user', validate(loginRequest), async (req, res) => {
     try {
@@ -85,6 +86,7 @@ router.put('/change-password', validate(changePasswordRequest), async (req, res)
 
         const userExists = await User.findOne({ email }).lean().exec();
 
+        if (!userExists) { return responseUserNotExists(res); }
         if (!(await comparePasswords(oldPassword, userExists.password))) {
             return responseWrongPassword(res);
         }

@@ -21,6 +21,7 @@ import LoadingScreen from '../home/LoadingScreen';
 import CreateLeaveRequest from '../leave-requests/components/CreateLeaveRequest';
 import LeaveRequestRescheduler from '../leave-requests/components/LeaveRequestRescheduler';
 import LeaveRequests from '../leave-requests/components/LeaveRequests';
+import RequestInformation from '../leave-requests/components/RequestInformation';
 import People from '../people/People';
 import Reports from '../reports/components/Reports';
 import PersonalInformation from '../user-menu/components/PersonalInformation';
@@ -78,8 +79,10 @@ function Routes() {
     return (
       <Switch>
         <PrivateRoute component={LeaveRequests} path="/requests" />
-        <Route path="/create-request"><CreateLeaveRequest /></Route>
+        <Route exact path="/create-request"><CreateLeaveRequest /></Route>
+        <Route path="/create-request/:id"><CreateLeaveRequest /></Route>
         <Route path="/rescheduler"><LeaveRequestRescheduler /></Route>
+        <Route path="/request-information/:id"><RequestInformation /></Route>
       </Switch>
     )
   }

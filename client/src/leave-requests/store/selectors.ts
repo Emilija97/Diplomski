@@ -13,4 +13,16 @@ export function selectRequestsByStatus(
     .map(id => state.leaveRequests.byId[id]);
 }
 
+export function selectRequests(state: RootState): LeaveRequest[] {
+  return state.leaveRequests.allIds.map(id => state.leaveRequests.byId[id]);
+}
+
+export const selectRequest = (state: RootState, requestId: string) => {
+  return state.leaveRequests.byId[requestId];
+}
+
+export const selectRequestId = (requests: LeaveRequest[], requestId: string) => {
+  return requests.find(request => request.id === requestId) as LeaveRequest;
+}
+
 

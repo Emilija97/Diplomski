@@ -9,4 +9,18 @@
   &__no-requests-message {
     margin-top: 16px;
   }
+  
+  &__floating-button {
+    text-align: center;
+    width: 100%;
+    padding-top: 45px;
+    position: fixed;
+    bottom: 15px;
+    margin-left: -20px;
+  }
+
+  &__bottom-container {
+    height: 150px;
+    padding-top: 30px;
+  }
 }

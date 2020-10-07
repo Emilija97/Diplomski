@@ -13,16 +13,9 @@ export function apiAddPerson(person: Person, file: File, cvFile: File): Observab
   return from(fetch(`${PERSON_URL}`, {
     method: "POST",
     body: formdata
-  }).then(response => {
-    //if(response.ok)
-    return response.json();
-    // else { console.log("nije ok") }
-    //   throw new Error("Something went wrong.");
-  })
+  }).then(response => { return response.json() })
     .then(res => {
-      console.log(res);
       if (res.error === "User already exists.") {
-        console.log("usao sam u res message");
         return res.error;
       }
       else

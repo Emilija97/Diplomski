@@ -25,12 +25,7 @@ function CreateEditPerson() {
   const history = useHistory();
   const fileInput = useRef() as MutableRefObject<HTMLInputElement>;
 
-  // const navigationMap = new Map<string, string>();
-  // navigationMap.set("employee", "Employee");
-  // navigationMap.set("candidate", "Candidate");
-  // navigationMap.set("contractor", "Contractor")
   const [selectedItem, setSelectedItem] = useState(id === undefined ? UserStatus.EMPLOYEE : user.status);
-  // id === undefined || user.status === UserStatus.EMPLOYEE ? "employee" : "candidate");
 
   const [cover, setCover] = useState(id === undefined ? "illustration.png" : user.imageSrc);
   const [avatar, setAvatar] = useState(id === undefined ? "camera.png" : user.imageSrc);

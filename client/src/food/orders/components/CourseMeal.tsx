@@ -3,7 +3,7 @@ import { CheckImage, RoundedPlusImage } from '../../../assets';
 import { NiIconButton } from '../../../shared';
 import '../../../shared/styles/ni-button.scss';
 import { Meal } from '../../meals/store/meal-types';
-import '../styles//course-meal.scss';
+import '../styles/course-meal.scss';
 import FoodForm from './FoodForm';
 
 interface CourseMealProps {

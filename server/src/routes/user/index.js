@@ -120,7 +120,6 @@ router.get("/name/:fullName", async (req, res, next) => {
         const { fullName } = req.params;
 
         if (fullName) {
-            console.log(fullName);
             const regex = new RegExp(`^.*${fullName}.*$`, 'i');
             const users = await User.find({ fullName: { $in: regex } }).lean().exec();
             const result = users.map(user => createUserId(user));

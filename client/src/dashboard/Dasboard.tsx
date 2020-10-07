@@ -11,7 +11,8 @@ export type DashboardItem = {
   title: string,
   imageSrc: string,
   url: string,
-  privileges: UserType[]
+  privileges: UserType[],
+  available: boolean
 }
 
 
@@ -23,31 +24,36 @@ function Dashboard() {
       title: "People",
       imageSrc: PeopleImage,
       url: "/people",
-      privileges: [UserType.ADMIN, UserType.HR]
+      privileges: [UserType.ADMIN, UserType.HR],
+      available: true
     },
     {
       title: "Requests",
       imageSrc: RequestsImage,
       url: "/requests",
-      privileges: [UserType.EMPLOYEE, UserType.HR, UserType.ADMIN]
+      privileges: [UserType.EMPLOYEE, UserType.HR, UserType.ADMIN],
+      available: true
     },
     {
       title: (loggedUserType === UserType.EMPLOYEE ? "Information" : "Work report"),
       imageSrc: WorkReportsImage,
       url: (loggedUserType === UserType.EMPLOYEE ? `/user-profile/${loggedUserId}` : "/work-reports"),
-      privileges: [UserType.EMPLOYEE, UserType.ADMIN, UserType.HR]
+      privileges: [UserType.EMPLOYEE, UserType.ADMIN, UserType.HR],
+      available: true
     },
     {
       title: "Food",
       imageSrc: FoodImage,
       url: (loggedUserType === UserType.EMPLOYEE ? "./weekly-orders" : "./food"),
-      privileges: [UserType.EMPLOYEE, UserType.HR, UserType.ADMIN]
+      privileges: [UserType.EMPLOYEE, UserType.HR, UserType.ADMIN],
+      available: false
     },
     {
       title: "Work activity",
       imageSrc: WorkActivityImage,
       url: "/work-activity",
-      privileges: [UserType.ADMIN, UserType.HR, UserType.EMPLOYEE]
+      privileges: [UserType.ADMIN, UserType.HR, UserType.EMPLOYEE],
+      available: false
     }
   ]
 
