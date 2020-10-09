@@ -10,8 +10,6 @@ const createRequestId = (request) => {
 }
 const { Request } = require('models');
 
-const responseWrongPass = res => res.status(400).send({ message: 'Invalid email/password.' });
-
 router.get("/", async (req, res, next) => {
     try {
         const requests = await Request.find().lean().exec();
