@@ -60,8 +60,7 @@ function Login() {
 					helperText={formik.errors.password} label="Password" name="password"
 					error={formik.touched.password && formik.errors.password ? true : false}>
 				</TextField>
-				{error ? <h3>User with this email doesn't exist, try sign up.</h3> : ""}
-				<h3>{message}</h3>
+				{error ? <h3>{message}</h3> : ""}
 				<div className="login__buttons">
 					<button type="button" onClick={() => onChangePasswordClick()}
 						className="ni-button ni-button--small ni-button__contained ni-button__contained--primary">Change password

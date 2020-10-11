@@ -17,7 +17,7 @@ const loginEpic = (action$: Observable<LoginInit>): Observable<Action> => {
       return apiLogin(action.email, action.password).pipe(
         map(response => {
           if (response.error === "Invalid email/password.")
-            return loginFailure();
+            return loginFailure(response.error);
           else {
             if (response.user.type !== UserType.GUEST)
               setItemToLocalStorage<User>(USER_DATA_KEY, response.user);
@@ -43,10 +43,8 @@ const signUpEpic = (action$: Observable<SignUpInit>): Observable<Action> => {
   return action$.pipe(
     ofType<SignUpInit>(AuthActionTypes.SIGN_UP_INIT),
     switchMap(action => {
-      console.log(action);
       return apiSignUp(action.fullName, action.email, action.password, action.userType).pipe(
         map(response => {
-          console.log(response);
           if (response === "User already exists.")
             return signUpFailure();
           else {
@@ -62,10 +60,8 @@ const changePasswordEpic = (action$: Observable<ChangePassword>): Observable<Act
   return action$.pipe(
     ofType<ChangePassword>(AuthActionTypes.CHANGE_PASSWORD),
     switchMap(action => {
-      console.log(action);
       return apiChangePassword(action.email, action.oldPassword, action.newPassword).pipe(
         map(response => {
-          console.log(response);
           if (response === 'Password successfully changed')
             return changePasswordSuccess(response);
 

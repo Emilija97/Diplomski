@@ -36,10 +36,11 @@ export function loginSuccess(id: string, fullName: string, userType: UserType): 
 
 export interface LoginFailure extends Action {
   type: AuthActionTypes.LOGIN_FAILURE;
+  message: string;
 }
 
-export function loginFailure(): AuthActions {
-  return { type: AuthActionTypes.LOGIN_FAILURE }
+export function loginFailure(message: string): AuthActions {
+  return { type: AuthActionTypes.LOGIN_FAILURE, message }
 }
 
 export interface SignUpInit extends Action {

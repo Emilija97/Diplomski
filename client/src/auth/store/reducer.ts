@@ -25,7 +25,7 @@ function reducer(state = initialState, action: AuthActions | UserMenuActions): A
       }
     }
     case AuthActionTypes.LOGIN_FAILURE: {
-      return { ...state, error: true, message: "" }
+      return { ...state, error: true, message: action.message }
     }
     case UserMenuActionTypes.LOGOUT_SUCCESS: {
       return {
