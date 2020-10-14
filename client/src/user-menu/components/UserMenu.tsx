@@ -68,10 +68,10 @@ function UserMenu(props: UserMenuProps) {
           <img className="user-menu__option-image" alt="" src={PersonalInformationImage} />
           <div className="user-menu__option-name">Personal information</div>
         </div>
-        <div className="user-menu__option">
+        {/* <div className="user-menu__option">
           <img className="user-menu__option-image" alt="" src={DarkModeImage} />
           <div className="user-menu__option-name">Dark mode</div>
-        </div>
+        </div> */}
         <div hidden={user.type == UserType.EMPLOYEE}>
           <div className="user-menu__option" onClick={handleUserAccessClick}>
             <img className="user-menu__option-image" alt="" src={UserAccessImage} />

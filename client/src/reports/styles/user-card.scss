@@ -48,15 +48,17 @@
   }
 
   &__hours {
-    flex: 4;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 15px 0px 15px 10px;
-    font-style: normal;
-    font-weight: bold;
+    width: 60px;
     font-size: $h5;
-    color: $title-color;
+    font-weight: 700;
+    border: none;
+  }
+
+  &__hours:focus {
+    outline: none;
   }
 
   &__name {

@@ -2,7 +2,7 @@
 
 $underline-color: #b22525;
 $tab-text-color: #090909;
-$inactive-tab-color: $ni-light-gray;
+$inactive-tab-color: $ni-black;
 
 .ni-tabs {
     .MuiTab-root {
@@ -16,6 +16,7 @@ $inactive-tab-color: $ni-light-gray;
 
     .MuiTab-textColorInherit {
         color: $inactive-tab-color;
+        opacity: 1.0;
     }
     
     .MuiTab-textColorInherit.Mui-selected {
@@ -29,6 +30,7 @@ $inactive-tab-color: $ni-light-gray;
 
         .MuiTab-textColorInherit {
             color: $inactive-tab-color;
+            opacity: 1.0;
         }
         
         .MuiTab-textColorInherit.Mui-selected {

@@ -28,7 +28,7 @@ function PerformancePage() {
   }, [dispatch, person, year]);
 
   const nextYear = () => {
-    if (year < new Date().getFullYear()) {
+    if (year < (new Date().getFullYear() - 1)) {
       setYear(year + 1);
     }
   };
@@ -37,6 +37,7 @@ function PerformancePage() {
     setSelectedYear(yearValue);
     if (yearValue === "currentYear")
       setYear(new Date().getFullYear());
+    else setYear(new Date().getFullYear() - 1);
   }
 
   return (

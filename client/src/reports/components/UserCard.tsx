@@ -1,9 +1,15 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { ChangeEvent, createRef, useEffect, useState } from 'react';
 import "../styles/user-card.scss";
 import { MarkedImage } from '../../assets';
 import ReportForm from './ReportForm';
 import { selectReport } from '../store/selectors';
 import { Report } from '../store/report-state';
+import { fromEvent, interval } from 'rxjs';
+import { debounce, map } from 'rxjs/operators';
+import { useDispatch } from 'react-redux';
+import { addReport, updateReport } from "../store/actions";
+import TextField from '@material-ui/core/TextField';
+import { normMap } from '../store/month-name';
 
 export interface UserCardProps {
     image: string,
@@ -20,40 +26,49 @@ export interface UserCardProps {
 }
 
 function UserCard(props: UserCardProps) {
-    const cardRef = createRef<HTMLDivElement>();
-    const [isFormOpen, setIsFormOpen] = useState(false);
+    const dispatch = useDispatch();
+    const [hours, setHours] = useState("");
 
     useEffect(() => {
-        const hammer = new Hammer(cardRef.current as HTMLDivElement);
-        hammer.set({ domEvents: true });
-        if (props.onPress) hammer.on("press", props.onPress);
-        if (props.onClick) hammer.on("tap", (event) => {
-            event.srcEvent.stopImmediatePropagation();
-            props.onClick && props.onClick(event);
-        });
-        return () => {
-            hammer.off("press");
-            hammer.off("tap");
-        }
-    }, [cardRef, props.onPress, props.onClick]);
+        if (props.report !== undefined)
+            setHours(props.report.hours as unknown as string);
+    }, [props.report]);
+
+    const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.persist();
+        setHours(event.target.value);
+        fromEvent(event.target, 'input')
+            .pipe(
+                debounce(() => interval(2000)),
+                map(() => event.target.value as string)
+            ).subscribe(value => {
+                const report: Report = {
+                    id: props.report === undefined ? "" : props.report.id,
+                    personId: props.personId,
+                    year: props.year,
+                    month: props.month,
+                    norm: normMap.get(props.month) as number,
+                    hours: (value as unknown as number)
+                }
+
+                props.report === undefined ? dispatch(addReport(report)) : dispatch(updateReport(report));
+
+            })
+    }
 
     return (
-        <div ref={cardRef}
+        <div
             className={"user-card " + props.className + (props.selected ? " user-card--selected" : "")}>
             <div className="user-card__image-container">
                 <img className="user-card__image" alt="" src={`http://localhost:5000/uploads/${props.image}`} />
                 <img className="user-card__overlay-image" hidden={!props.selected} alt="" src={MarkedImage} />
             </div>
-            <ReportForm fullName={props.fullName} report={props.report}
-                year={props.year} month={props.month} personId={props.personId}
-                open={isFormOpen}
-                onClose={() => setIsFormOpen(false)} />
-            <div className="user-card__info" onClick={() => setIsFormOpen(true)}>
+            <div className="user-card__info">
                 <div className="user-card__data">
                     <div className="user-card__name">{props.fullName}</div>
                     <div className="user-card__position">{props.position}</div>
                 </div>
-                <div className="user-card__hours">{props.report ? props.report.hours : ""}</div>
+                <input className="user-card__hours" type="number" value={hours} onChange={e => handleInputChange(e)} />
             </div>
         </div>
     );
