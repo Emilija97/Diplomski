@@ -58,15 +58,16 @@ router.post("/", async (req, res) => {
             ...attributes
         });
 
+
         const savedReport = await report.save((report._id));
 
         if (!savedReport) {
             return res.status(400).send({ message: responses(400) });
         }
-
         const result = createMappingObject(savedReport);
         delete savedReport._id;
         return res.status(200).json(result);
+
     }
     catch (e) {
         logger.error(e);

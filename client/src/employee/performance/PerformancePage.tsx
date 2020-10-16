@@ -9,7 +9,7 @@ import GraphComponent from "./GraphComponent";
 import "./performance.scss";
 import { loadReportsInit } from "../../reports/store/actions";
 import { Report } from "../../reports/store/report-state";
-import { selectReports } from "../../reports/store/selectors";
+import { selectReports, selectReportsByYear } from "../../reports/store/selectors";
 
 function PerformancePage() {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -20,7 +20,7 @@ function PerformancePage() {
 
   const dispatch = useDispatch();
   const person = useSelector((state: RootState) => state.person);
-  const reports: Report[] = useSelector((state: RootState) => selectReports(state));
+  const reports: Report[] = useSelector((state: RootState) => selectReportsByYear(state));
 
   useEffect(() => {
     if (person.id)

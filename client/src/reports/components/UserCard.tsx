@@ -4,8 +4,9 @@ import { MarkedImage } from '../../assets';
 import ReportForm from './ReportForm';
 import { selectReport } from '../store/selectors';
 import { Report } from '../store/report-state';
-import { fromEvent, interval } from 'rxjs';
-import { debounce, map } from 'rxjs/operators';
+import { fromEvent, interval, Subject } from 'rxjs';
+import Observable from 'rxjs/Observable';
+import { debounce, debounceTime, distinctUntilChanged, flatMap, map, mergeAll, throttleTime } from 'rxjs/operators';
 import { useDispatch } from 'react-redux';
 import { addReport, updateReport } from "../store/actions";
 import TextField from '@material-ui/core/TextField';
@@ -20,40 +21,42 @@ export interface UserCardProps {
     position: string,
     className?: string,
     selected?: boolean,
-    report: Report;
+    report: any;
     onPress?: HammerListener;
     onClick?: HammerListener;
 }
 
 function UserCard(props: UserCardProps) {
     const dispatch = useDispatch();
-    const [hours, setHours] = useState("");
+    const [hours, setHours] = useState(props.report === undefined ? "" : props.report.hours as string);
+    const [typingTimeout, setTypingTimeout] = useState(0);
 
     useEffect(() => {
-        if (props.report !== undefined)
-            setHours(props.report.hours as unknown as string);
-    }, [props.report]);
+        if (props.report === undefined) {
+            setHours("");
+        } else {
+            setHours(props.report.hours as string);
+        }
+    }, [props.report, props.month]);
 
-    const handleInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onAcceptHandle = (value: string) => {
+        const report: Report = {
+            id: props.report === undefined ? "" : props.report.id,
+            personId: props.personId,
+            year: props.year,
+            month: props.month,
+            norm: normMap.get(props.month) as number,
+            hours: (value as unknown as number)
+        }
+
+        props.report === undefined ? dispatch(addReport(report)) : dispatch(updateReport(report));
+    }
+
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.persist();
+        if (typingTimeout) clearTimeout(typingTimeout);
         setHours(event.target.value);
-        fromEvent(event.target, 'input')
-            .pipe(
-                debounce(() => interval(2000)),
-                map(() => event.target.value as string)
-            ).subscribe(value => {
-                const report: Report = {
-                    id: props.report === undefined ? "" : props.report.id,
-                    personId: props.personId,
-                    year: props.year,
-                    month: props.month,
-                    norm: normMap.get(props.month) as number,
-                    hours: (value as unknown as number)
-                }
-
-                props.report === undefined ? dispatch(addReport(report)) : dispatch(updateReport(report));
-
-            })
+        setTypingTimeout(setTimeout(() => onAcceptHandle(event.target.value), 1000) as unknown as number)
     }
 
     return (
@@ -68,7 +71,7 @@ function UserCard(props: UserCardProps) {
                     <div className="user-card__name">{props.fullName}</div>
                     <div className="user-card__position">{props.position}</div>
                 </div>
-                <input className="user-card__hours" type="number" value={hours} onChange={e => handleInputChange(e)} />
+                <input className="user-card__hours" type="number" value={hours} onChange={onChange} />
             </div>
         </div>
     );

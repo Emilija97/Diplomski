@@ -57,7 +57,7 @@ function Reports() {
     }
 
     const checkSelectedReports = (userId: string) => {
-        const report = selectReport(reports, userId);
+        const report = selectReport(reports, userId, monthsMap.get(selectedMonth) as string, year);
         if (selectedReportsIds.filter(id => id === report.id).length !== 0) return true;
         else return false;
     }
@@ -126,7 +126,7 @@ function Reports() {
                                 image={user.imageSrc}
                                 fullName={user.fullName}
                                 position={user.position}
-                                report={selectReport(reports, user.id)}
+                                report={selectReport(reports, user.id, monthsMap.get(selectedMonth) as string, year)}
                             />
                         );
                     })}

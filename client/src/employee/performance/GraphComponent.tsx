@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { loadReportsInit } from "../../reports/store/actions";
 import { Report } from "../../reports/store/report-state";
-import { selectReports } from "../../reports/store/selectors";
+import { selectReports, selectReportsByYear } from "../../reports/store/selectors";
 
 interface Props {
   year: number;
@@ -15,7 +15,7 @@ function GraphComponent(props: Props) {
 
   const dispatch = useDispatch();
   const person = useSelector((state: RootState) => state.person);
-  const reports: Report[] = useSelector((state: RootState) => selectReports(state));
+  const reports: Report[] = useSelector((state: RootState) => selectReportsByYear(state));
 
   useEffect(() => {
     dispatch(loadReportsInit(person.id as string, props.year));
